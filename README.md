@@ -1,3 +1,1 @@
-# cursos
-
-Aplicación web para venta de cursos y pagos online.
+# Yovera Group sitio web
