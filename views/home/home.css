@@ -1,0 +1,75 @@
+
+
+.home-section {
+    background-color: #f7f7f7;
+    padding: 3rem 4rem;
+}
+
+.imagen-cursos {
+    border-radius: 8px;
+    height: 135px;
+    width: 100%;
+}
+
+.inline-flex {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+
+/*banner*/
+
+.background-banner {
+    position: relative;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.overlay-banner {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    width: 100%;
+    /*background-color: #0000004d;*/
+}
+
+.box-title {
+    color: #21252b !important;
+    background-color: rgba(254,182,0,.8) !important;
+    margin: auto;
+}
+
+.box-subtitle {
+    background: rgba(0, 0, 0,0.6);
+    color: #fff !important;
+}
+
+.p-30  {
+    padding: 10px 0px;
+}
+
+.text-wrap {
+    height:50px;
+}
+
+.video-anuncio {
+    width: auto !important;
+    height: 450px !important;
+    border-radius: 5px;
+}
+
+@media (max-width: 768px) {
+
+    .p-30 {
+        padding: 10px;
+    }
+    h2.p30 {
+        font-size: 20px;
+    }
+
+    h5.p30 {
+        font-size: 18px;
+    }   
+}

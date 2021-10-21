@@ -1,0 +1,55 @@
+
+<loader ng:show="loader"></loader>
+    
+
+<div ng:init="Init();" ng:show="!loader">
+    
+    <div class="page-title">
+        <div class="bg-title" style="background: url(dist/images/hexagon.png) repeat;"></div>
+        <div class="container">
+            <div class="column" style="    z-index: 200;position: relative;">
+                
+                <h1 class="text-white">
+                    <a href="#/" class="text-white"><i class="fa fa-arrow-left"></i></a> &nbsp;&nbsp;
+                    
+                    Galería Fotográfica</h1>
+            </div>
+            <div class="column">
+            </div>
+        </div>  
+    </div>
+
+    <div class="container padding-bottom-3x">
+
+        <div class="galeria">
+
+            <loader ng:show="loader"></loader>
+
+            <div class="contenedor-imagenes" *ng:if="!loader">
+                
+                <div class="col-md-12 text-center mb-4" ng:if="galerias.length == 0">
+                
+                    <div class="alert alert-primary" role="alert">
+                
+                        <i class="fas fa-frown"></i>
+                
+                        Aún no hemos registrado nuestra primera galería.
+                
+                    </div>
+                
+                </div>
+
+                <div class="imagen" ng:repeat=" item in galerias" id="galeria" ng:if="galerias.length > 0">
+                    <img  ng:src="{{path + item.image }}" alt="{{item.url}}">
+                    <div class="overlay" ng:click ="getData(item);">
+                      <h3>{{item.titulo}}</h3>
+                      <button class="btn btn-sm btn-overlay"> Ver Galería</button>
+                    </div> 
+                </div>    
+            </div>
+  
+        </div>
+  
+    </div>
+
+</div>

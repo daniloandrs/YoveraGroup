@@ -1,0 +1,43 @@
+
+.list-horizontal {
+    font-weight: bold;
+    background: #ffffff;
+    border-radius: .2em;
+    padding: 0em .5em;
+    text-align: center;
+    margin: 0em 0em 1em;
+}
+
+.list-horizontal li {
+    display:inline;
+    background-color:#ffffff;
+}
+
+@media (max-width: 600px) {
+    .list-horizontal li {
+      display: table-cell;
+    }    
+}
+
+@media (max-width: 800px) {
+    .btn-sync .text-right{
+        text-align: center !important;
+    }
+}
+
+.btn-horizontal {
+    box-shadow: none;
+    margin: 0 !important;
+    padding: .5em .7em !important;
+    font-size: 11px !important;
+    border-radius: .5em;
+}
+
+.table a {
+    margin-right: 0 !important;
+}
+
+.btn-horizontal:hover {
+    background: #eeececfa;
+    box-shadow: none;
+}

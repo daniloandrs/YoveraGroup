@@ -1,0 +1,265 @@
+
+<div class="dn-roles" ng:init="Init();">
+
+    <div class="card">
+        
+        <div class="card-body" style="padding-bottom: 0em;">
+
+            <div class="col-md-12 mb-2">
+                
+                <div class="row">
+                    <h5>
+                        <span class="fas fa-image"></span>
+                        Banners
+                    </h5>
+
+                </div>
+
+            </div>
+    
+            <div class="row justify-content-between">
+
+                <div class="col-4">
+                    
+                    <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();"></btn>
+
+                </div>
+        
+            </div>
+    
+        </div>
+
+        <div class="row btn-sync" ng:if="loader">
+        
+            <loader type="view-loading"></loader>	
+    
+        </div>
+    
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="container-fluid">
+            
+                <div class="row text-center" ng:if="listBanner.length == 0">
+    
+                    <i class="fas fa-folder-minus fa-2x"></i>
+                    
+                    <span ng:bind="'Ningún banner añadido.'"> </span>
+    
+                </div>
+    
+                <div ng:if="listBanner.length > 0">
+    
+                    <div class="row">
+                        
+                        <div class="col-md-12 col-sm-12 "> 
+                        
+                            <div class="row">
+                        
+                                <div 
+                                    ng-model="listBanner" 
+                                    class="col-md-4 col-sm-6 mb-2" 
+                                    style="margin-bottom: 1em !important;"
+                                    data-drop="true" jqyoui-droppable="{index:{{$index}} }"
+                                    dir-paginate="item in listBanner|orderBy:'-order'|itemsPerPage:20" pagination-id="item.id"
+                                >
+                                    <div
+                                        ng-model="listBanner"  
+                                        class="card text-white mb-0" 
+                                        data-drag="true" 
+                                        ng:class="{'border-right-color' : item.enabled}"
+                                        data-jqyoui-options="{revert: 'valid'}" 
+                                        jqyoui-draggable="{index: {{$index}},placeholder:true,animate:true, onStop: 'stopCallback(item,$index)'}"
+                                    >
+                                    
+                                    <div class="align-self-end card-close dropdown">
+                                        
+                                        <a class="btn-floating btn-close btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="delete-menu fas fa-ellipsis-v"></i>
+                                        </a>
+
+                                        <div class="dropdown-menu">
+
+                                            <a class="dropdown-item" href="" ng:click="editModal(item);">
+                                                <i class="fa fa-pencil-alt"></i> Editar
+                                            </a>
+                                            
+                                            <a class="dropdown-item" href="" ng:click="deleteModal(item);">
+                                                <i class="fa fa-trash-alt"></i> Eliminar
+                                            </a>
+
+                                            <a class="dropdown-item" ng:if="item.enabled" ng:click="deleteModal(item);">
+                                                <i class="fa fa-trash-alt"></i> Deshabilitar
+                                            </a>
+                                            
+                                            <a class="dropdown-item" ng:if="!item.enabled" ng:click="deleteModal(item);">
+                                                <i class="fa fa-trash-alt"></i> Habilitar
+                                            </a>
+
+                                          </div>
+
+                                    </div>
+
+                                        <img 
+                                            class="card-img slider-img" 
+                                            loading="lazy"  
+                                            ng:src="{{ path + item.banner_image }}" 
+                                            alt="{{ item.title }}" 
+                                            d-lightbox-open
+                                        >
+                                    
+                                    </div>  
+                                    
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>                 
+
+                    <div class="text-center">
+                        <dir-pagination-controls pagination-id="item.id"></dir-pagination-controls>
+                    </div>
+
+                </div>
+    
+            </div>
+    
+            <div class="row btn-sync mt-4">
+    
+                <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+            
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>
+
+<d-modal name="modal-crud" title="{{ titleModal | uppercase }}" size="fluid">
+        
+    <form name="forms.menu" class="text-center" ng:submit="send();">
+        
+        <div class="col-md-12">
+
+            <div class="row">
+            
+                <div class="col-md-7">
+            
+                    <fieldset>
+            
+                        <div class="col-md-12">
+                            
+                            <input-text 
+                                
+                                title="Título" 
+                                model="objectBanner.title" name="title" 
+                                form="forms.banner.title" 
+                                placeholder="título" 
+                                maxl="250" minl="3" 
+                                req="true"
+
+                            ></input-text>
+            
+                        </div> 
+            
+                    </fieldset>
+
+                    <fieldset>
+
+                        <div class="col-md-12">
+
+                            <input-area 
+                                
+                                label="Descripción" 
+                                model="objectBanner.description" name="description" 
+                                form="forms.banner.description" 
+                                holder="Descripción" 
+                                maxl="250" minl="3" 
+                                req="true"
+
+                            ></input-area>  
+
+                        </div>
+
+                    </fieldset>
+
+                    <fieldset>
+
+                        <div class="col-md-12">
+                        
+                            <div class="row">
+                        
+                                <div class="col-md-4">
+                                    
+                                    <input-text 
+                                
+                                        title="Título del Botón" 
+                                        model="objectBanner.button_title" name="button_title" 
+                                        form="forms.banner.button_title" 
+                                        placeholder="Título del botón" 
+                                        maxl="250" minl="3" 
+                                        regex=".*"
+
+                                    ></input-text>
+
+                                </div>
+                                
+                                <div class="col-md-8">
+
+                                    <input-text 
+                                
+                                        title="Redireccionar A" 
+                                        model="objectBanner.redirect_to" name="redirect_to" 
+                                        form="forms.banner.redirect_to" 
+                                        placeholder="Redireccionar A" 
+                                        maxl="250" minl="3" 
+                                        regex=".*"
+
+                                    ></input-text>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+
+                <div class="col-md-5">
+
+                    <fieldset>
+                        
+                        <input-file 
+                            model="objectBanner.banner_image" type="image" options="optionsImage" 
+                            title="Imagen para el Banner" default="default_banner_image" delete-event="delete_();">
+                        </input-file>
+                    
+                    </fieldset>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <br>
+
+        <btn 
+
+            title="{{title_button}}" 
+
+            type="{{ create_opcion ? 'success' : 'warning'}}" 
+            
+            size="sm" spiner="spinFrom" form="forms.menu"
+            
+            disabled="(objectBanner.banner_image == undefined || forms.banner.$invalid)"
+
+        ></btn>
+
+    </form>
+
+</d-modal>

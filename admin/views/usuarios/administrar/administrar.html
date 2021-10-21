@@ -1,0 +1,146 @@
+<div class="dn-administrar" ng:init="onInit()">
+    <div class="container-fluid no-padding">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h4 class="card-title">
+                            <i class="fa fa-hand-paper"></i> Administrar</h4>
+                    </div>
+                    <div class="col text-right">
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6" ng:if="normal_view">
+  
+                    </div>
+                    <div class="col-md-6" ng:class="{ 'col-md-12': !normal_view }">
+
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            <input 
+                                class="form-control my-0 py-1 input-search" 
+                                type="text" 
+                                placeholder="Buscar por nombre" 
+                                aria-label="Search"
+                                ng:model="search"
+                            >
+                            <div class="input-group-append">     
+                                <span class="input-group-text" id="basic-text1">                                
+                                    <i class="fas fa-search text-grey" aria-hidden="true"></i>                         
+                                </span>                 
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container-fluid">
+                        <br>
+                        <div class="table-responsive">
+                            <table class="table table-andheuris table-hover">
+                                <thead class="active">
+                                    <tr>
+                                        <th>Nick</th>
+                                        <th>Email</th>
+                                        <th>Fecha de Registro</th>
+                                        <th>Administrar</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng:repeat="row in list_data | filter: search">
+                                        <td ng:bind="row.name"></td>
+                                        <td ng:bind="row.email"></td>
+                                        <td ng:bind="row.created_at | date:'DD MMMM YYYY'"></td>
+                                        <td>
+                                            <button class="btn btn-info btn-sm" ng:click="changePassword(row)">
+                                                <i class="fa fa-unlock"></i>
+                                            </button>
+                                            <button class="btn btn-warning btn-sm" ng:click="EditUser(row)">
+                                                <i class="fa fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 
+<d-modal name = "modal-edit-user" title = "Actualizar Usuario">
+    <form name="formUsuario" ng:submit="saveUser()">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <input-text 
+                        title="Nombres" model="main_obj.nombres" name="nombres"  req="true"
+                        form="formUsuario.nombres" maxl="250" minl="2" regex=".*"
+                    ></input-text>
+                </div>  
+                <div class="col-12">
+                    <input-email 
+                        title="Email" model="main_obj.email" name="email"  req="true"
+                        form="formUsuario.email" maxl="250" minl="2"
+                    ></input-email>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <input-text 
+                        title="Nombre de usuario" model="main_obj.name" name="name"  req="true"
+                        form="formUsuario.name" maxl="50" minl="3" 
+                    ></input-text>
+                </div>
+                <div class="col-12">
+                    <input-select
+                        list="list_roles" key="nombre"
+                        label="Rol" 
+                        model="main_obj.rol_id" name="rol_id" 
+                        form="formUsuario.rol_id" 
+                        placeholder="Seleccionar Rol" 
+                        req="true"
+                    ></input-select>
+                </div>
+            </div>
+        </div>
+        <div class="container" align="center">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <btn title="{{spin ? 'Actualizando ... ' : 'Actualizar'}}"  disabled="formUsuario.$invalid"
+                        type="success" size="sm" spiner="spin" form="formUsuario"></btn>
+                </div>
+            </div>
+        </div>
+    </form>
+</d-modal>
+
+
+<d-modal name = "modal-edit-password" title = "Actualizar contraseña">
+    <form name="formPassword" ng:submit="updatePassword()">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <input-text 
+                        title="Ingresa la nueva contraseña" model="object.password" name="password"  
+                        type="{{typePassword}}" req="true"  icon="{{iconEye}}" icon-event="showPassword();"
+                        form="formPassword.password" maxl="250" minl="2" regex=".*"
+                    ></input-text>
+                </div>  
+            </div>
+        </div>
+
+        <div class="container" align="center">
+            <div class="row justify-content-center">
+                <div class="col-8">
+                    <btn title="{{spin ? 'Actualizando ... ' : 'Actualizar'}}"  disabled="formPassword.$invalid"
+                        type="success" size="sm" spiner="spin" form="formPassword"></btn>
+                </div>
+            </div>
+        </div>
+    </form>
+</d-modal>

@@ -1,0 +1,114 @@
+
+<div class="dn-roles" ng:init="onInit()">
+    <div class="container-fluid no-padding">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">
+                            <i class="fa fa-images"></i> Imágenes</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 m-auto"> 
+                        <button class="btn btn-success btn-sm" ng:click="addImages();">
+                            <i class="fa fa-plus"></i> Agregar Imágenes </button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            <input 
+                                class="form-control my-0 py-1 input-search" 
+                                type="text" 
+                                placeholder="Buscar" 
+                                aria-label="Search"
+                                ng:model="search"
+                            >              
+                            <div class="input-group-append">               
+                                <span class="input-group-text">                   
+                                    <i class="fas fa-search text-grey" aria-hidden="true"></i>                              
+                                </span>      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="container-fluid">                       
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <div class="row" ng:if="imagenesList == 0">
+                                    <div class="col-md-12 text-center">
+                                        <h6> <i class="fas fa-image"></i> Ninguna imagen añadida.</h6>
+                                    </div>
+                                </div>
+
+                                <div class="row" ng:if="imagenesList.length > 0">
+                                    <div class="col-md-3 col-sm-6 mb-2" style="margin-bottom: 1em !important;" dir-paginate="item in imagenesList|filter:search|orderBy:'-created_at'|itemsPerPage:8" pagination-id="item.id">
+                                        <div class="card bg-blue text-white mb-0" >
+                                            <img class="card-img gm-img" loading="lazy" 
+                                                ng:src="{{path + item.directorio + '/' + item.url }}" alt="{{item.src_imagen}}">
+                                            <div class="text-center">
+                                                <a class="btn-float btn btn-sm" ng:click="editImage(item);">
+                                                    <i class="fa fa-pencil-alt"></i>
+                                                </a>
+                                                <a class="btn-float btn btn-sm" ng:click="deleteImage(item);">
+                                                    <i class="fa fa-trash-alt"></i>
+                                                </a>
+                                            </div>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>     
+                        <div d:spinner="loading"></div>
+                        <div class="text-center">
+                            <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+</div>
+
+
+<d-modal name="modal-base-form" title="Añadir Imágenes" size="lg">
+    <form name="forms.form_base">   
+        <div class="row">
+            <div class="container-fluid">
+                <div id="galeria" class="dropzone down_images"></div>
+            </div>
+        </div>
+    
+        <div class="fix-col justify-content-center text-center">
+            <button class="btn btn-info btn-sm" 
+                ng:disabled = "spin_dropzone || dropzone.getQueuedFiles().length == 0 "
+                ng:click = "sendDataEvent();">
+                {{spin_dropzone ? 'Enviando ' : 'Guardar'}}
+                <i ng:if="spin_dropzone" class=" fa fa-spin fa-spinner"></i>  
+            </button>
+        </div>
+    </form>  
+</d-modal>
+
+<d-modal name="modal-edit-form" title="Editar Imagen" size="md">
+
+    <input-file 
+        model="objectEdit.image" type="image" options="optionsFile" 
+        title="Editar imagen" default="default_image"
+        delete-event="delete_();" clear-default = "clearDefault"
+    >
+    </input-file>
+
+    <div class="fix-col justify-content-center">            
+        <btn
+            title="Actualizar" type ="warning"  size="sm" spiner="spinForm" 
+            disabled="(objectEdit.image == undefined || spinForm) " click="updateImage();"
+        ></btn>
+    </div>
+      
+</d-modal>

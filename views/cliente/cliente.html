@@ -1,0 +1,79 @@
+<loader ng:show="loader"></loader>	
+
+<div ng:init="Init();">
+
+    <div ng:show="!loader">
+
+        <div class="page-title">
+            <div class="container">
+                <div class="column">
+                    <h1>Galería de Clientes</h1>
+                </div>
+                <div class="column">
+                    <ul class="breadcrumbs">
+                        <li><a href="#/">Inicio</a></li>
+                        <li class="separator">&nbsp;</li>
+                        <li>{{subServicio.nombre}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container padding-bottom-3x mb-1">
+            
+            <div class="row">
+
+                <div class="col-md-12">
+
+                    <h4 class="h4">
+                        Cada día nos esforzamos, para servir cada vez mejor a nuestros clientes
+                    </h4>
+    
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                 
+                <section class="bg-white ">
+                    <div class="container">
+                        <div class="owl-carousel" id="owl-clientes-view" 
+                        data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: true, &quot;loop&quot;: true, &quot;margin&quot;: 30, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:1},&quot;630&quot;:{&quot;items&quot;:2},&quot;991&quot;:{&quot;items&quot;:3},&quot;1200&quot;:{&quot;items&quot;:3}} }"    
+                        >
+                            <div class="card" ng:repeat="cliente in clientes">
+                                <div class="card-body">
+                                    <img class="m-auto" style="    width: auto !important;
+                                    height: 12em;" ng:src="{{path + cliente.imagen}}" alt="{{cliente.nombre}}" >
+                                
+                                </div>
+                                
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="owl-nav disabled">
+                    <div class="owl-prev"
+                    ></div><div class="owl-next"></div></div><div class="owl-dots disabled"></div></div>
+                    </div>
+                </section>
+                
+            </div>
+
+        </div>
+
+        <div class="pi-section-w pi-shadow-inside-top pi-section-base">
+            <div class="pi-texture" style="background: url(dist/images/hexagon.png) repeat;"></div>
+            <div class="pi-section pi-padding-top-60 pi-padding-bottom-40 pi-text-center">
+                <p class="lead-30">
+                    <span class="pi-weight-400">Inicia un proyecto con NOSOTROS, </span>
+                    <a class="btn btn-info"  href="#/contactanos" style="margin-left: 25px;">
+                        <i class="icon-mail pi-icon-left"></i> Contáctenos ahora!
+                    </a>  
+                </p>
+            </div>
+        </div>   
+
+    </div>
+
+</div>

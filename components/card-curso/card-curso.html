@@ -1,0 +1,35 @@
+
+<div class="card mb-4 card-curso" ng:init="Init();">
+	<a  href="#/cursos/{{$ctrl.curso.url_course}}" ng:if="!$ctrl.loggedIn">
+		<img class="img-curso card-img-top" ng:src="{{ CONFIG.STORAGE + $ctrl.curso.background_image }}" alt="{{$ctrl.curso.name}}">
+	</a>
+	<a  href="#/mis_cursos/{{$ctrl.curso.url_course}}" ng:if="$ctrl.loggedIn">
+		<img class="img-curso card-img-top" ng:src="{{ CONFIG.STORAGE + $ctrl.curso.background_image }}" alt="{{$ctrl.curso.name}}">
+	</a>
+	<div class="card-body card-body-curso">
+		<h6 class="card-title">
+			<a href="#/cursos/{{$ctrl.curso.url_course}}" ng:if="!$ctrl.loggedIn">
+				<strong>{{$ctrl.curso.name}}</strong>
+			</a>
+			<a href="#/mis_cursos/{{$ctrl.curso.url_course}}" ng:if="$ctrl.loggedIn">
+				<strong>{{$ctrl.curso.name}}</strong>
+			</a>
+		</h6>
+		<p class="card-text truncate-text-3 text-muted">
+			{{$ctrl.curso.description}}
+		</p>
+	</div>
+	<div class="card-footer text-muted">
+		<div class="col-md-12 p-0 m-0 inline-flex">
+			<span class="smaller-font-size" ng:bind="$ctrl.curso.teacher.name"></span>
+			<span class="text-md text-primary" ng:if="!$ctrl.loggedIn">
+				{{$ctrl.curso.precio | currency : 'S/. ' }}
+			</span>
+			<span class="text-md text-primary" ng:if="$ctrl.loggedIn">
+				pagado
+			</span>
+		</div>
+	</div>
+
+</div>
+

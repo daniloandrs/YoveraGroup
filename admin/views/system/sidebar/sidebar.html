@@ -1,0 +1,66 @@
+
+
+<div class="container-fluid">
+    
+    <div class="row">
+
+        <nav class="bg-faded nav-sidebar" id="sidebar-toggle">
+            
+            <div class="sidebar-header hidden-sm-down">
+                
+                <div class="view overlay rounded z-depth-1 mb-12">
+                    <img class="img-fluid" src="dist/images/profile/avatar.jpg" alt="imagen_avatar">
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+                </div>
+                     
+
+                <div class="card-body elegant-color white-text rounded-bottom avatar-name">
+                    <span class="card-title">
+                        <strong ng:bind="user.name"></strong>
+                    </span>
+                </div>
+
+            </div>
+
+			<div class="sidebar-body">
+                
+                <ul class="sidebar-list">
+                    
+                    <li class="sidebar-item" ng-repeat="opcion in menu.opciones |orderBy:'nombre'" ng:if="opcion.id != 3">
+                        
+                        <a data-toggle="collapse" data-target="#collapse_{{$index}}" aria-expanded="false" 
+                        class="dropdown-toggle" href="" ng:click="expanded($index)">
+                            <i class=" sidebar-icon fa fa-{{opcion.icono}}"></i> 
+                            <span ng-bind="opcion.nombre"></span> 
+                        </a>
+                        
+                        <ul class="collapse sub-item" id="collapse_{{$index}}" ng-if="opcion.items" ng:class="{hide:$index != lastSelected}">
+                            <li class="sidebar-sub-item" ng-repeat="item in opcion.items|orderBy:'nombre'">
+                                <a class="sub-href" ng:click="select($index)" ng:class="{'_active':$index == selected}" 
+                                href="#/{{item.url}}">
+                                    <i class="fa fa-angle-double-right"></i>
+                                    <span ng:bind="item.nombre"></span>
+                                </a>
+                            </li> 
+                        </ul>
+
+                    </li>
+
+                </ul>
+                
+			</div>
+        </nav>
+    </div>
+  </div>
+
+  <script>
+    $('.sidebar-expand button').click(function() {
+      $(this).toggleClass("flip-y"); 
+      $('#nav-sidebar').toggleClass("active");
+    });
+    $('#myCollapsible').collapse({
+      toggle: false
+    })
+  </script>

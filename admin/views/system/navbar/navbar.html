@@ -1,0 +1,43 @@
+<!--Navbar -->
+
+<nav class="mb-1 navbar-expand-lg navbar  navbar-theme lighten-1 fixed-top">
+  
+  <div class="navbar-brand">
+
+    <a class="navbar-brand" href="#/home"  style="color: #fff !important;">
+
+      <span class="hidden-sm-down">Yovera Group</span>
+    
+    </a>
+
+    <a id="navbar-toggle"  ng:click="toggleSidebar();"  style="color: #fff !important;" class="navbar-brand" href="">
+      <i class="fas fa-expand fa-lg" aria-hidden="true"></i>
+    </a>
+
+  </div>
+
+  <div  id="topbar-menu-container" class="ml-auto">
+    
+    <ul class="navbar-nav ml-auto">
+      
+      <li class="nav-item dropdown">
+        
+        <a class="nav-link dropdown-toggle" 
+          style="color: #ffff;"
+          data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fa fa-user" ng:bind=" ' ' + user.name">  </i>
+        </a>
+        
+        <div class="dropdown-menu dropdown-menu-right dropdown-primary" aria-labelledby="navbarDropdownMenuLink-333">
+          <a class="dropdown-item text-write" href="#/profile">Ver Perfil</a>
+          <a class="dropdown-item text-write" href="" ng:click="logout();">Cerrar Sesión</a>
+        </div>
+
+      </li>
+
+    </ul>
+    
+  </div>
+
+</nav>
+  <!--/.Navbar -->

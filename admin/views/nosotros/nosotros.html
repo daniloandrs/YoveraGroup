@@ -1,0 +1,323 @@
+
+<div class="dn-roles" ng:init="Init();">
+
+    <div class="card mb-4">
+        
+        <div class="card-body" style="padding-bottom: 0em;">
+
+            <div class="col-md-12 mb-2">
+                
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-layer-group"></i>
+                        Logo Principal
+                    </h5>
+
+                </div>
+
+            </div>
+    
+        </div>
+    
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <input-file 
+                        model="objectLogo.image" type="image" options="optionsFileLogo" 
+                        title="Elija una imagen para el logo" default="path + imagen_logo" 
+                        delete-event="delete_();" clear-default = "clearDefaultLogo"
+                    >
+                    </input-file>
+                </div>
+            
+                <div class="fix-col justify-content-center">            
+                    <btn 
+                        click="saveLogo();"
+                        title="Guardar" type ="info"  size="sm" spiner="spinFormLogo" 
+                       disabled="(objectLogo.image == undefined) || spinFormLogo"
+                    ></btn>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+    <div class="card mb-4">
+        
+        <div class="card-body" style="padding-bottom: 0em;">
+
+            <div class="col-md-12 mb-2">
+                
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-layer-group"></i>
+                        Imagen Fondo
+                    </h5>
+
+                </div>
+
+            </div>
+    
+        </div>
+    
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <input-file 
+                        model="objectFondo.image" type="image" options="optionsFileFondo" 
+                        title="Elija una imagen de Fondo" default="path + imagen_fondo " 
+                        delete-event="delete_();" clear-default = "clearDefaultFondo"
+                    >
+                    </input-file>
+                </div>
+            
+                <div class="fix-col justify-content-center">            
+                    <btn 
+                        click="saveFondo();"
+                        title="Guardar" type ="info"  size="sm" spiner="spinFormFondo" 
+                       disabled="(objectFondo.image == undefined) || spinFormFondo"
+                    ></btn>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <div class="card mb-4">
+        
+        <div class="card-body" style="padding-bottom: 0em;">
+
+            <div class="col-md-12 mb-2">
+                
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-layer-group"></i>
+                        Nosotros
+                    </h5>
+
+                </div>
+
+            </div>
+    
+        </div>
+    
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="container-fluid">
+                
+                <ul class="nav nav-pills justify-content-center" role="tablist">
+
+                    <li class="nav-item">
+                        <i class="icon-user"></i>
+                        <a 
+                            class="nav-link" 
+                            ng:class="{'active' : tab == 'tab_1' }"
+                            ng:click="changeTab('tab_1');"
+                        >
+                            Nostros                            
+                        </a>
+
+                    </li>
+                    
+                    <li class="nav-item">
+                        <i class="icon-user"></i>
+                        <a  class="nav-link"
+                            ng:class="{'active' : tab == 'tab_2' }"
+                            ng:click="changeTab('tab_2');"
+                        >
+                            Misión
+                        </a>
+
+                    </li>
+                    
+                    <li class="nav-item">
+                        <i class="icon-user"></i>
+                        <a  class="nav-link" 
+                            ng:class="{'active' : tab == 'tab_3' }"
+                            ng:click="changeTab('tab_3');"
+                        >
+                            Visión
+                        </a>
+
+                    </li>
+ 
+                </ul>
+
+                <div class="tab-content">
+                    
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_1' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.descripcion"
+                            >
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-4 m-auto text-center">
+                                <button class="btn btn-light btn-sm" ng:click="editContent('nosotros');">
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_2' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.mision"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 m-auto text-center">
+                                <button class="btn btn-light btn-sm" ng:click="editContent('mision');">
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_3' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.vision"
+                            >
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 m-auto text-center">
+                                <button class="btn btn-light btn-sm" ng:click="editContent('vision');">
+                                    Editar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+
+
+
+
+    <div class="card mb-2">
+        <div class="card-body" style="padding-bottom: 0em;">
+            <div class="col-md-12 mb-2">
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-image"></i>
+                        Galería
+                    </h5>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body">
+            <div class="row">                
+                <div class="col-md-4 m-auto text-center">
+                    <btn type="success" title="Nuevo" icon="plus" center="true" click="openModalGaleria();"></btn>
+                </div>
+            </div>
+        </div>
+
+        <div ng:if="!loader" class="card-body">
+            <div class="row">       
+                <div class="col-md-3 mb-4 text-center" dir-paginate="image in imagenes | orderBy:'-created_at'|itemsPerPage:4" pagination-id="image.id">
+                    <div class="dropdown" style="position: absolute;">
+                        <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="delete-menu fas fa-ellipsis-v"></i>
+                        </a>
+    
+                        <div class="dropdown-menu dropdown-dark">
+                            <a class="dropdown-item" href="" ng:click="editImage(image);">Editar</a>
+                            <a class="dropdown-item" href="" ng:click="deleteImage(image);">Eliminar</a>
+                        </div>
+    
+                    </div>
+                    <img style="width: 100%" ng:src="{{ path + image.directorio + '/' + image.url }}" alt="">
+                </div>
+            </div>
+
+            <div class="row btn-sync mt-4">
+                <dir-pagination-controls pagination-id="image.id"></dir-pagination-controls>
+            </div>
+
+        </div>
+
+    </div> 
+
+</div>
+
+<d-modal name="modal-editor" title="Contenido" size="lg">
+    
+    <div class="col-md-12 text-center">
+        <label class="text-bold" for="">Ingresa tu información aqui </label>
+    </div>  
+
+    
+    <div class="col-md-12 mb-2">
+        <input type="text" class="form-control" ng:model="titulo" required>
+    </div>
+
+    <div class="col-md-12">
+
+        <fieldset>
+            <div>
+                <div id="toolbar">
+                </div>
+                <div id="editor">
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+
+    <btn 
+        title="Enviar"     click="save(titulo);"
+        type ="success"    size="sm" spiner="spinFrom" 
+        form ="forms.menu" disabled="forms.banner.$invalid"
+    ></btn>
+
+
+</d-modal>
+
+<d-modal name="modal-galeria" title="Galería" size="md">
+
+    <div class="col-md-12">
+        <input-file 
+            model="object.image" type="image" options="optionsFile" 
+            title="Elija una imagen" default="default_image" 
+            delete-event="delete_();" clear-default = "clearDefault"
+        >
+        </input-file>
+    </div>
+
+    <div class="fix-col justify-content-center">            
+        <btn 
+            click="sendDataEvent();"
+            title="Añadir" type ="info"  size="sm" spiner="spinFormImage" 
+           disabled="(object.image == undefined) || spinFormImage"
+        ></btn>
+    </div>
+    
+
+</d-modal>

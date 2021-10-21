@@ -1,0 +1,211 @@
+
+<div class="dn-roles" ng:init="Init();">
+
+    <div class="card mb-2">
+        <div class="card-body" style="padding-bottom: 0em;">
+            <div class="col-md-12 mb-2">
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-cubes"></i>
+                        Servicios
+                    </h5>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body">
+            <div class="row">                
+                <div class="col-md-4 m-auto text-center">
+                    <btn type="success" title="Nuevo" icon="plus" center="true" click="openModal();"></btn>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row btn-sync" ng:if="loader">
+            <loader type="view-loading"></loader>	
+        </div>
+
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="row" ng:if="serviciosList.length == 0">
+                <div class="col-md-12 text-center">
+                    <i class="fas fa-folder-minus"></i>
+                    <span ng:bind="'Ningún servicio registrado.'"> </span>
+                </div>
+            </div>
+
+            <div class="row" ng:if="serviciosList.length > 0">       
+                
+                <div class="col-md-12 mb-4 text-center" dir-paginate="servicio in serviciosList | orderBy:'-created_at'|itemsPerPage:3" pagination-id="servicio.id">
+                    
+                    <div class="dropdown" style="position: absolute;">
+                        <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="delete-menu fas fa-ellipsis-v"></i>
+                        </a>
+    
+                        <div class="dropdown-menu dropdown-dark">
+                            <a class="dropdown-item" href="" ng:click="goToGestionar(servicio);">Gestionar</a>
+                            <a class="dropdown-item" href="" ng:click="goToAddImages(servicio);">Añadir Imágenes</a>
+                            <a class="dropdown-item" href="" ng:click="goToAddContenido(servicio);">Añadir contenido</a>
+                            <a class="dropdown-item" href="" ng:click="editServicio(servicio);">Editar</a>
+                            <a class="dropdown-item" href="" ng:click="deleteServicio(servicio);">Eliminar</a>
+                        </div>
+    
+                    </div> 
+
+                    <div class="container-fluid row border p-2">
+                        <div class="col-md-4 p-0">
+                            <img style="width: 100%" ng:src="{{ path + servicio.icono }}" alt="imagen-servicio">
+                        </div>
+                        <div class="col-md-8" style="text-align: start;">
+                            <p class="h6">{{servicio.nombre}}</p>
+                            <div>
+                                {{servicio.descripcion}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row btn-sync mt-4">
+                <dir-pagination-controls pagination-id="servicio.id"></dir-pagination-controls>
+            </div>
+
+        </div>
+
+    </div> 
+
+</div>
+
+<d-modal name="modal-base" title="Registro de servicio" size="lg">
+    <form name="forms.base" ng:submit="saveServicio();">
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input-text 
+                        title="Nombre del servicio" 
+                        model="object.nombre" name="nombre" 
+                        form="forms.base.nombre" 
+                        placeholder="Nombre" 
+                        maxl="250" minl="3" 
+                        req="true"
+                    />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <input-area 
+                            label="Descripción del Curso" 
+                            model="object.descripcion" name="descripcion" 
+                            form="forms.menu.descripcion" 
+                            placeholder="Descripción" 
+                            maxl="2000" minl="3" 
+                            rows="6"
+                            req="true"
+                            regex=".*"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5">
+                <input-file 
+                    model="object.image" type="image" options="optionsFile" 
+                    title="Elija una imagen" default="default_image" form="forms.base.image"
+                    delete-event="delete_();" clear-default = "clearDefault"
+                >
+                </input-file>
+            </div>        
+        </div>
+    
+        <div class="fix-col justify-content-center">            
+            <btn
+                title="Registrar" type ="info"  size="sm" spiner="spinForm" 
+                disabled="(object.image == undefined || forms.base.$invalid || spinForm) "
+                form="forms.base"
+            ></btn>
+        </div>
+
+    </form> 
+    
+</d-modal>   
+
+
+
+<d-modal name="modal-editor" title="Registro de servicio" size="lg">    
+        <div class="row">
+            <div class="col-md-12">
+                <fieldset>
+                    <div>
+                        <div id="toolbar">
+                        </div>
+                        <div id="editor">
+                        </div>
+                    </div>
+                </fieldset>
+            </div>    
+        </div>
+    
+        <div class="fix-col justify-content-center">            
+            <btn
+                title="Guardar" type ="info"  size="sm" spiner="spinFormEditor" click="saveContent();"
+            ></btn>
+        </div>
+
+</d-modal>   
+
+ 
+<d-modal name="modal-galeria" title="Añadir Imágenes" size="lg">
+    <form  name="formEdit">   
+        <div class="row">
+            <div class="container-fluid">
+                <div id="servicesImages" class="dropzone down_images"></div>
+            </div>
+        </div>
+    
+        <div class="fix-col justify-content-center text-center">
+            <button class="btn btn-info btn-sm" 
+                ng:disabled = "spin_image || dropzone.getQueuedFiles().length == 0 "
+                ng:click = "sendDataEvent();">
+                {{spin_image ? 'Enviando ' : 'Guardar'}}
+                <i ng:if="spin_image" class=" fa fa-spin fa-spinner"></i>  
+            </button>
+        </div>
+    </form>
+
+
+    <div class="col-md-12" style="margin-top: 3em;">
+        <div class="row">
+            
+            <div class="col-md-12 text-center" ng:if="servicioSelected.archivos.length == 0">
+                <h6 class="h6 p-0">Ninguna imagen añadida</h6>
+            </div>
+
+            <div class="col-md-3" ng:repeat="image in servicioSelected.archivos" ng:if="servicioSelected.archivos.length > 0">
+
+                <loader type="loading" ng:if="image.spin"></loader>
+
+                <div class="dropdown" style="position: absolute;" ng:if="!image.spin">
+                    <a class="btn-floating btn-close btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="delete-menu fas fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-dark">
+                        <a class="dropdown-item" href="" ng:click="deleteImageServicio(image);">Eliminar</a>
+                    </div>
+
+                </div>
+                <div class="container-fluid row border m-0 p-0" ng:if="!image.spin">
+                    <div class="col-md-12 p-0 m-0">
+                        <img style="width:100%" ng:src="{{path + image.directorio + '/' + image.url }}" alt="image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+
+    </div>
+</d-modal>

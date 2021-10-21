@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="content-language" content="es" >
+		<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+		<title>Yovera Group </title>
+		<meta name="description" content="Ofrecer soluciones personalizadas dentro del sector Hidrocarburos, Gas Natural, Industrial, Agrícola, Hotelería y Turismo.">
+		<meta name="robots" content="index, follow">
+		<meta name="googlebot" content="...">  
+		<meta name="google" content="notranslate">
+		<meta http-equiv ="Cache-Control" content ="no-cache">
+		<link rel="stylesheet" href="dist/css/aplication.css" type="text/css">
+	</head>
+
+	<body ng:app="app" ng:controller="index">
+
+		<component-swal/></component-swal>
+		<loader ng:show="loader"></loader>	
+		<div>
+			<navbar></navbar>
+			<div style="min-height:50rem;">
+				<div ng:show="!loader" ng:view ></div>
+			</div>
+		</div>
+
+		<div class="btn-whatsapp">
+			<a style="cursor: pointer;" ng:click="adquirirServicio();" target="_blank">
+			<img src="http://s2.accesoperu.com/logos/btn_whatsapp.png" alt="">
+			</a>
+		</div>
+
+		<my-footer></my-footer>
+
+		<script src="modules/load/version.generate.js?v.1" type="text/javascript"></script>
+		<script src="modules/load/libreries.js?v.1" type="text/javascript"></script>
+		<script src="modules/load/aplication.js?v.1" type="text/javascript"></script>	
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1-bs6892JoYPJn0YkN6X-T5SNFR-SXOU" type="text/javascript"></script>
+		
+	</body>
+</html>

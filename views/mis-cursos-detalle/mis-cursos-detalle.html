@@ -1,0 +1,218 @@
+<loader ng:show="loader"></loader>
+
+<div class="onInit" ng:init="Init();" ng:show="!loader">
+
+    <div class="container padding-bottom-3x mb-1 container-cursos">
+
+        <div class="container padding-bottom-3x mb-1 margin-top-3x">
+            <div class="row">
+                <div class="col-lg-7">
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="row mb-4 mt-4" ng:if="loaderVideo">
+                                <div class="col-md-12 text-center">
+                                    <div class="spinner-grow text-gray-dark m-2" style="width: 3rem; height: 3rem;" role="status"><span class="sr-only">Loading...</span></div>
+                                </div>
+                            </div>
+
+
+                            <video ng:show="!loaderVideo"
+                                id="my-video"
+                                class="video-js"
+                                controls
+                                preload="auto"
+                                width="640"
+                                height="380"
+                                poster="{{path + claseDetalle.temary.course.background_image}}"
+                                data-setup="{}"
+                            >
+                                <source src="{{path + claseDetalle.url_video}}" type="video/mp4" />
+                                <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a
+                                web browser that
+                                <a href="https://videojs.com/html5-video-support/" target="_blank"
+                                    >supports HTML5 video</a
+                                >
+                                </p>
+                            </video>
+                            
+                            <div class="col-md-12 mt-4">
+                                <h6 style="width: 100%; font: weight 800;">
+                                    {{claseDetalle.temary.numeration + '.' +  claseDetalle.numeration + '.- '}} {{ claseDetalle.title }}
+                                </h6>
+                            
+                                <span style="width: 70%">
+                                    {{claseDetalle.description}}
+                                </span>
+                            </div>
+                            
+                            <div class="col-md-12 mt-4" ng:if="claseDetalle.archivos.length > 0">
+                                <h6 class="text-muted text-lg text-uppercase">Documentos adjuntos</h6>
+                                <div class="table-responsive">
+                                    <table class="table">
+                                      <thead>
+                                        <tr>
+                                          <th>Tipo</th>
+                                          <th>Nombre</th>
+                                          <th>acciones</th>
+                                        </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr ng:repeat="archivo in claseDetalle.archivos">
+                                          <td>
+                                              <span ng:class="assignIcon(archivo.tipo_archivo);"></span>
+                                          </td>
+                                          <td>
+                                              {{archivo.url}}
+                                          </td>
+                                          <td style="display: inline-flex;">
+
+                                              <button class="btn btn-outline-primary btn-sm" ng:click="dowloadFile(archivo);" ng:disabled="archivo.spin">
+                                                <i class="fas fa-download" ng:if="!archivo.spin"></i>
+                                                
+                                                <div ng:if="archivo.spin" class="spinner-border spinner-border-sm text-primary mr-2" role="status"></div>
+
+                                              </button>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-lg-5">
+
+                    <div class="col-md-12">
+    
+                        <div class="accordion md-accordion" id="accordionTemary" role="tablist" aria-multiselectable="true">
+
+                            <div class="col-md-12 text-center" ng:if="detalleCurso.temario.length == 0">
+                
+                                <div class="alert alert-primary" role="alert">
+                
+                                    <i class="fas fa-frown"></i>Este curso aún no tiene temario.
+                                
+                                </div>
+                
+                            </div>
+                
+                            <div class="head-temario">
+                                <h5 class="temary-title">TEMARIO DEL CURSO</h5>
+                            </div>
+                            <div class="card mb-2 border-none" ng:repeat="temary in detalleCurso.temario | orderBy : 'numeration' " ng:if="detalleCurso.temario.length > 0">
+                        
+                                <div class="card-header temario-header" role="tab" id="{{ 'head_' + temary.id }}">
+            
+                                    <a 	style="cursor: pointer;"
+                                        data-toggle="collapse" data-parent="#accordionTemary" 
+                                        ng:click="toggleAccordion(temary,'body_' + temary.id);" 
+                                        aria-expanded="true" aria-controls="{{ 'body_' + temary.id }}"
+                                        ng:class="{'collapsed' : temary.collapsed }"    
+                                    >
+                                        
+                                        <h6 class="text-muted ">
+                                            <dt>{{temary.numeration + '. ' +  temary.title }}</dt>
+                                        </h6>
+
+                                        <small class="text-muted">
+                                            {{temary.description}}
+                                        </small>
+                                    </a>
+                
+                                </div>
+                            
+                                <div id="{{ 'body_' + temary.id }}" class="collapse" role="tabpanel" aria-labelledby="{{ 'head_' + temary.id }}" data-parent="#accordionTemary">
+                
+                                    <div class="card-body pt-0">
+                                    
+                                        <div class="col-md-12 text-center" ng:if="temary.temary_courses.length == 0">
+                
+                                            <div class="alert alert-primary" role="alert">
+                            
+                                                <i class="fas fa-frown"></i> 
+                                                
+                                               Ninguna clase añadida para este Módulo.
+                
+                                            </div> 
+                            
+                                        </div>
+                
+                
+                                        <div class="col-md-12 p-0" ng:if="temary.temary_courses.length > 0">
+                                            
+                                            <div class="timeline timeline-sm mt-4">
+
+                                                <div class="timeline-item" ng:click="openVideo(video);" ng:repeat="video in temary.temary_courses | orderBy : 'numeration'">
+                                                    
+                                                    <div class="timeline-item-marker mt-2" >
+                                                        <div class="timeline-item-marker-indicator">
+                                                            <i class="fa fa-check"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeline-item-content m-auto">
+                                                        <span style="width: 70%;">
+                                                            {{temary.numeration + '.' +  video.numeration + '.- '}} {{ video.title }}
+                                                        
+                                                        </span>
+                                                        
+                                                        <time style="float: right;"> {{video.duration}} </time>
+                                                    </div>
+            
+                                                </div>
+                
+                                            </div>
+        
+                                        </div>
+                
+                                    </div>
+                
+                                </div>
+                        
+                            </div>
+                
+                        </div>
+                    </div>
+                    <!-- 
+                    <div class="col-md-12 mt-4" ng:if="claseDetalle.archivos.length > 0">
+                        <h6 class="text-muted text-lg text-uppercase">Basic Example</h6>
+                        <hr class="margin-bottom-1x">
+                        <div class="table-responsive">
+                            <table class="table">
+                              <thead>
+                                <tr>
+                                  <th>#</th>
+                                  <th>icono</th>
+                                  <th>nombre</th>
+                                  <th>acciones</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr ng:repeat="archivo in claseDetalle.archivos">
+                                  <th scope="row">{{ $index + 1 }}</th>
+                                  <td>
+                                      <span ng:class="assignIcon(archivo.tipo_archivo);"></span>
+                                  </td>
+                                  <td>
+                                      {{archivo.url}}
+                                  </td>
+                                  <td>
+                                      <button class="btn btn-link btn-sm"></button>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                    </div>
+                    -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,191 @@
+<breadcrumb></breadcrumb>
+<!-- card --> 
+<div class="card" ng:init="init();">
+
+    <!-- card - botton nuevo y input search -->
+    <div class="card-body" style="padding-bottom: 0em;">
+        
+        <div class="col-md-12 m-2">
+            <div class="row">
+                <h5>
+                    <span class="fa fa-home"></span> {{ menu_selected.nombre }}
+                </h5>
+            </div>
+        </div>
+
+        
+
+        <div class="row">
+            <!-- buton recargar -->
+            <div class="btn-sync col-md-6">
+                <div class="text-right">
+                    <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+                        <i class="fa fa-spinner"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-6 text-center">
+                <div style="display:inline-flex;">
+                    <btn center="right" type="success" size="sm" title="Nuevo" icon="plus-circle" click="openModalCreateOption();">
+                    </btn>
+                </div>
+            </div>
+        </div> 
+
+    </div>
+
+    <div class="row btn-sync" ng:show="loader">
+        <loader type="view-loading"></loader>	    
+    </div>
+
+    <div ng:show="!loader" class="col-md-12">
+        <div class="card-body">
+            <div class="table">
+                <table class="table">
+                    <tbody>
+                        <tr ng-repeat="op in menu |orderBy:'-id'">
+                            <td class="text-left">
+                                <div class="col-sm-12">
+
+                                    <div class="row">
+                                        
+                                        <div class="col-sm-6">
+                                            <br>
+                                            <h5>
+                                                {{($index + 1)+".- "+op.nombre}}
+                                                <small class="fa fa-{{op.icono}}"></small>
+                                            </h5>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <br>
+                                            <ul class="list-horizontal">
+                                                <li>
+                                                    <a class="btn btn-sm btn-horizontal text-success" ng:click="modalItem(op);">
+                                                        <i class="fas fa-plus-circle fa-md"></i> Nuevo
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-sm btn-horizontal text-warning" ng:click="openModalEditOption(op);" ng:show="op.id != null">
+                                                        <i class="fas fa-edit fa-md"></i> Editar
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a class="btn btn-sm btn-horizontal text-danger" ng:click="openModalDeleteOption(op);">
+                                                        <i class="fas fa-trash-alt fa-md"></i> Eliminar
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <i style="margin-left: 4%" ng-show="op.items.length == 0">No tiene Items</i>
+
+                                <div ng-if="op.items.length > 0">
+                                    <br>
+                                        
+                                    <ul style="margin-left: 4%" class="list-unstyled">
+                                        <li ng-repeat="item in op.items">
+                                            <div class="row">
+
+                                                <div class="col-sm-4">
+                                                    <h6> {{'* ' + item.nombre}} <small>[url: "{{item.url}}"]</small></h6>
+                                                </div>
+
+                                                <div class="col-sm-4">
+                                                    
+                                                    <ul class="list-horizontal">
+                                                        <li>
+                                                            <a class="btn btn-sm btn-horizontal text-warning" ng:click="modalUpdateSubOption(item);">
+                                                                <i class="fas fa-edit fa-md"></i> Editar
+                                                            </a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="btn btn-sm btn-horizontal text-danger" ng:click="loadDeletedSubOpcion(item);">
+                                                                <i class="fas fa-trash-alt fa-md"></i> Eliminar
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+                                                    
+                                                <div class="col-sm-4">
+                                                    
+                                                    <div class="form-row">
+
+                                                        <input-switch ng:show="!item.spin" model="item.isSelected" title="" change="giveItem(item);"></input-switch>
+                                                        
+                                                        <div class="" ng:show="item.spin">
+                                                            procesando ... 
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div> 
+
+                                            <br>
+
+                                        </li>
+                                        <div class="clearfix"></div>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+ 
+
+<d-modal name="modal-item" title="{{ titleModalItem | uppercase }}">
+    
+    <form name="forms.item" class="text-center" ng:submit="sendCreateOrUpdateItem(objectItem);">
+        
+        <div class="form-row">
+            <div class="col-md-12">
+                <input-text title="Nombre" model="objectItem.nombre" name="nombre" form="forms.item.nombre" 
+                placeholder="Nombre" maxl="55" minl="4" req="true"/>
+            </div>
+
+            <div class="col-md-12">
+                <input-text title="Url" model="objectItem.url" name="icono" form="forms.item.icono" placeholder="url"
+                    maxl="225" minl="2" req="false" />
+            </div>
+        </div>
+
+        <btn title="{{title_button_item}}" type="{{ create_item ? 'success' : 'warning'}}" size="sm" 
+            disabled="forms.item.$invalid" spiner="spin" form="forms.item"></btn>
+
+    </form>
+
+</d-modal>
+
+<d-modal name="modal-opcion" title="{{ titleModal | uppercase }}">
+    
+    <form name="forms.menu" class="text-center" ng:submit="sendCreateOrUpdateOption(objectOption);">
+        
+        <div class="form-row">
+            <div class="col-md-12">
+                <input-text title="Nombre" model="objectOption.nombre" name="nombre" form="forms.menu.nombre" 
+                placeholder="Nombre" maxl="25" minl="4" req="true"/>
+            </div>
+
+            <div class="col-md-12">
+                <input-text title="Icono" model="objectOption.icono" name="icono" form="forms.menu.icono" placeholder="icono fontawesone"
+                    maxl="25" minl="2" req="false" />
+            </div>
+        </div>
+
+        <btn title="{{title_button}}" type="{{ create_opcion ? 'success' : 'warning'}}" size="sm" 
+            disabled="forms.menu.$invalid" spiner="spin" form="forms.menu"></btn>
+
+    </form>
+
+</d-modal>

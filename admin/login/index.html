@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es" ng:app="login">
+<head>
+
+    <title>Yovera Group | Iniciar sesión </title>
+	<meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="./login.css" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	
+    <link rel="stylesheet" href="../dist/css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/font-awesome.css" type="text/css">
+    <link rel="stylesheet" href="../dist/css/mdb.css" type="text/css">
+    
+</head>
+
+<body ng:controller="login">
+    
+    <component-swal></component-swal>
+
+	<div class="contenedor">
+
+        <div class="form-contenedor">
+
+            <div class="contenedor-img">
+                <img src="./background.svg" alt="Vector, planetas en orbita">
+            </div>
+
+            <div class="contenedor-formulario"> 
+
+                <div class="logotipo">
+                    <h3>Yovera</h3><h2>Group</h2>
+                </div>
+
+                <div class="formulario-login">
+
+                    <form ng:submit="login(credenciales)">
+
+                        <h4 class="titulo">Iniciar sesión</h4>
+
+                        <div class="input-username">                            
+                            <input type="text" name="username" ng:model="credenciales.name" required="true" placeholder="Nombre de usuario">
+                        </div>
+
+                        <div class="input-password">                            
+                            <input type="password" name="password" ng:model="credenciales.password" required="true" placeholder="Password">
+                        </div>
+
+                        <div class="btn-login">
+
+							<button type="submit" class="btn button-login" ng:disabled="spin">
+								{{ spin ? 'Accediendo ...' :  'Iniciar Sesión' }}
+							</button>
+				
+                        </div>
+						
+                        <hr class="linea">      
+
+                    </form>
+                </div>
+                            
+            </div>
+
+            <div class="contenedor-man">
+                <img src="./man.svg" alt="Vector, hombre con celular">
+            </div> 
+
+        </div>
+        
+	</div>  
+
+    <script  rel="javascript" src="load/libreries.js"></script>
+    <script  rel="javascript" src="load/aplication.js"></script>
+    <script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	    
+</body>
+</html>

@@ -1,0 +1,175 @@
+
+<div ng:init="Init();">
+
+    <loader ng:show="loader"></loader>
+
+    <div class="offcanvas-wrapper banner-container" ng:show="!loader">
+
+        <div id="owl-banner" class="owl-carousel">
+
+            <div class="item"  style="height:700px" ng:repeat="banner in listBanner">
+                
+                <div class="background-banner" style="background-image:url('{{path + banner.banner_image}}')" >
+                    <div class="overlay-banner"></div>
+                    <div class="row m-auto h-100">
+                    
+                        <div class="col-lg-4 col-md-4  text-md-left" style="margin:auto 50px">
+                    
+                            <div class="from-bottom col-md-12">
+                    
+                                <div class=" box-title h2 text-body text-normal mb-2 pt-1">
+                                    <h4 style="text-align: center;
+                                    font-weight: bold;" class="p-30" ng:bind="banner.title"></h4>
+                                </div>
+                    
+                                <div class="h5 text-body text-normal mb-4 pb-1 box-subtitle text-center">
+                                    <h5 class="p-30 pb-0 mb-0 text-white">
+                                        {{banner.description}}
+                                    </h5>
+                                    <a class="btn btn-primary scale-up delay-1 btn-sm text-center" ng:click="adquirirServicio(banner);">
+                                        Contáctanos
+                                    </a>
+                                </div>
+                    
+                            </div>   
+                    
+                        </div>  
+                    
+                        <div class="col-md-6" ng:hide="true">
+                
+                        </div>
+                    
+                    </div>
+                
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div class="row container-fluid pt-4" style="background-color: #11505d;" ng:if="isNavidad();">
+        <div class="col-md-4 text-center">
+            <video class="video-anuncio" controls autoplay>
+                <source src="./dist/video/saludo-navidad.mp4" type=video/mp4>
+            </video>
+        </div>
+        <div class="col-md-8 text-center">
+            <div class="row">
+                <div class="col-md-12">
+                    <img  style="    height: 450px;
+                    width: auto;" src="./dist/images/background/saludo-navidad.png" alt="saludp-navidad">
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    
+
+    <!-- servicios-->
+    <div class="pi-section-w pi-shadow-inside-top "  ng:show="!loader">
+        
+        <div class="pi-texture"></div>
+        
+        <div class="pi-section container">
+        
+            <div class="pi-text-center pi-padding-bottom-20">
+                <h3 class="pi-weight-700 pi-uppercase pi-letter-spacing pi-has-border pi-has-tall-border pi-has-short-border">
+                    SERVICIOS
+                </h3>
+            </div>				
+            <div class="row">			
+                <div class="col-sm-4 col-xs-6 m-auto pt-4 pb-4" ng:repeat="servicio in servicios">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img  style="    width: auto;
+                            object-fit: fill;
+                            height: 250px;" ng:src="{{ path + servicio.icono }}">
+                        </div>
+
+                        <div class="col-md-12">  
+                            <h4 class="h5 pt-4">
+                                <strong>{{servicio.nombre}}</strong>
+                            </h4>	
+                            <p class="text-wrap" class="text-justify">
+                                {{servicio.descripcion}}
+                            </p>
+                        </div>
+
+                        <div class="col-md-12">
+                            <a class="btn btn-sm btn-primary" href="#/servicio/{{servicio.id}}">
+                                Leer Más
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- End col 3 -->			
+            </div>		
+        </div>
+    </div>
+    <!--end servicios-->
+
+
+    <!-- sección de cursos -->
+
+    <div class="home-section"  ng:show="!loader">
+    
+        <section class="cursos-section">
+
+            <div class="col-md-12 p-0 inline-flex">
+
+                <h5> 
+                    <span class="s-mr-05">
+                        <img src="./dist/images/icons/cursos_online.svg" alt="icon_cursos" width="25px">
+                    </span>
+                    Nuestros Cursos 
+                </h5>
+
+                <h6>
+                    <a href="#/cursos">
+                        ver todos 
+                    </a>
+                </h6>
+            </div>
+
+            <div class="col-md-12 p-0">
+
+                <div id="owl-cursos" class="owl-carousel">
+                
+                    <div class="item" ng:repeat="curso in listCursos">
+
+                        <a href="#/cursos/{{curso.url_course}}">
+                            <img class="d-block mx-auto imagen-cursos" ng:src="{{ path + curso.background_image }}" alt="{{curso.name}}">
+                        
+                        </a>
+                            
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+    
+
+    <section class="bg-white padding-top-3x padding-bottom-3x"  ng:show="!loader">
+        <div class="container">
+            <h2 class="h3 text-center mb-30 pb-3">Nuestros Clientes</h2>
+            <div class="owl-carousel" id="owl-clientes" 
+                data-owl-carousel="{ &quot;nav&quot;: false, &quot;dots&quot;: false, &quot;loop&quot;: true, &quot;autoplay&quot;: true, &quot;autoplayTimeout&quot;: 4000, &quot;responsive&quot;: {&quot;0&quot;:{&quot;items&quot;:2}, &quot;470&quot;:{&quot;items&quot;:3},&quot;630&quot;:{&quot;items&quot;:4},&quot;991&quot;:{&quot;items&quot;:5},&quot;1200&quot;:{&quot;items&quot;:6}} }">
+                <img class="d-block w-110 opacity-75 m-auto" ng:src="{{path + cliente.imagen}}" alt="{{cliente.nombre}}" ng:repeat="cliente in clientes">
+            </div>
+        </div>
+    </div>
+    <div class="owl-nav disabled"  ng:show="!loader">
+        <div class="owl-prev"
+        ></div><div class="owl-next"></div></div><div class="owl-dots disabled"></div></div>
+        </div>
+    </section>
+
+</div>

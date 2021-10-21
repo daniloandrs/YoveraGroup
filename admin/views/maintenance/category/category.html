@@ -1,0 +1,142 @@
+
+<div class="card" ng:init="Init();">
+
+    <div class="card-body" style="padding-bottom: 0em;">
+
+        <div class="col-md-12 mb-2">
+            <div class="row">
+                <h5><span class="fa fa-home"></span> Categorías </h5>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();">
+                </btn>
+            </div>
+    
+            <div class="col-5 md-form form-sm search-box">
+                <i class="fa fa-search prefix icon-search"></i>
+                <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- end -->
+
+    <!-- buuton recargar -->
+    <div class="row  btn-sync mb-2">
+        <div class="align-self-end">
+            <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+                <i class="fa fa-spinner"></i>
+            </a>
+        </div>
+    </div>
+    <!-- end -->
+
+    <div class="row btn-sync" ng:if="loader">
+        
+        <loader type="view-loading"></loader>	
+
+    </div>
+
+    <div ng:if="!loader" class="col-md-12">
+        
+        <div class="container-fluid">
+        
+            <div class="col-md-12 text-center" ng:if="listData.length == 0">
+
+                <i class="fas fa-folder-minus fa-2x"></i>
+                
+                <span> Ninguna categoria registrada. </span>
+
+            </div>
+
+            <div class="table-responsive" ng:if="listData.length > 0">
+
+                <table class="table">
+                
+                    <thead>
+                
+                        <tr>
+                            
+                            <th scope="col">#</th>
+
+                            <th scope="col">NOMBRE</th>
+                            
+                            <th class="text-center" scope="col">ACCIONES</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+                    
+                        <tr dir-paginate="row in listData|filter:search|orderBy:'-id'|itemsPerPage:10" pagination-id="row.id">
+                    
+                            <th scope="row" ng:bind="$index + 1"></th>
+                    
+                            <td ng:bind="row.name"></td>
+                    
+                            <td class="text-center">
+
+                                <button type="button" class="btn btn-link btn-sm" ng:click="editModal(row);">
+
+                                    <i class="fa fa-edit text-warning" data-toggle="tooltip" data-placement="bottom"
+                                    title="Editar">
+                                        editar
+                                    </i>
+
+                                </button>
+                                
+                                <button type="button" class="btn btn-link btn-sm"  ng:click="deleteModal(row);">
+
+                                    <i class="fa fa-trash-alt text-danger" data-toggle="tooltip" data-placement="bottom"
+                                    title="Eliminar"> 
+                                        Eliminar
+                                    </i>
+
+                                </button>
+ 
+                            </td>
+                    
+                        </tr>
+                    
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row btn-sync mt-4">
+
+            <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+        
+        </div>
+        
+    </div>
+</div>
+
+
+<d-modal name="modal-crud" title="{{titleModal | uppercase}}">
+        
+    <form name="forms.menu" class="text-center" ng:submit="send(object)">
+        
+        <div class="form-row">
+
+            <div class="col-md-12">
+
+                <input-text title="Nombre" model="object.name" name="name" form="forms.menu.name" placeholder="Nombre" maxl="250" minl="3" req="true" regex=".*"/>
+            
+            </div>
+
+        </div>
+
+        <btn title="{{title_button}}" type="{{ create_opcion ? 'success' : 'warning'}}" size="sm" spiner="spin" form="forms.menu"></btn>
+
+    </form>
+
+</d-modal>

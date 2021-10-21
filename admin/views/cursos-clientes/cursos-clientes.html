@@ -1,0 +1,331 @@
+
+<div class="card" ng:init="Init();">
+
+    <div class="card-body" style="padding-bottom: 0em;">
+
+        <div class="col-md-12 mb-2">
+            
+            <div class="row">
+            
+                <h5>
+                    <i class="fas fa-users"></i>
+                    Cursos - Lista de Clientes
+                </h5>
+
+            </div>
+
+        </div>
+
+        <div class="row justify-content-between">
+            
+            <div class="col-5">
+
+                <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();"></btn>
+            
+            </div>
+    
+            <div class="col-6 md-form form-sm search-box">
+
+                <i class="fa fa-search prefix icon-search"></i>
+                
+                <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+            
+            </div>
+        
+        </div>
+
+    </div>
+
+    <!-- end -->
+
+    <!-- buuton recargar -->
+    <div class="row  btn-sync mb-2">
+
+        <div class="align-self-end">
+        
+            <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+        
+                <i class="fa fa-spinner"></i>
+        
+            </a>
+        
+        </div>
+    
+    </div>
+    <!-- end -->
+
+    <div class="row btn-sync" ng:if="loader">
+        
+        <loader type="view-loading"></loader>	
+
+    </div>
+
+    <div ng:if="!loader" class="col-md-12">
+        
+        <div class="container-fluid">
+        
+            <div class="col-md-12 text-center" ng:if="listData.length == 0">
+
+                <i class="fas fa-folder-minus fa-2x"></i>
+                
+                <span ng:bind="'Ningún ' + modelTitle + ' encontrado.'"> </span>
+
+            </div>
+
+            <div class="row">
+                        
+                <div class="col-md-12 col-sm-12 "> 
+                
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-6 mb-2" dir-paginate="row in listData | filter:search | orderBy:'-id'|itemsPerPage:10" pagination-id="row.id">
+                            
+                            <div class="card">
+
+                                <div class="align-self-end card-close dropdown">
+
+                                    <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                        <i class="delete-menu fas fa-ellipsis-v"></i>
+
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-dark">
+                                        <a class="dropdown-item" href="" ng:click="editModal(row);">Editar</a>
+                                        <a class="dropdown-item" href="" ng:click="deleteModal(row);">Eliminar</a>
+                                        <a class="dropdown-item" href="" ng:click="verCredenciales(row);">Ver Credenciales</a>
+                                        
+                                    </div>
+
+                                </div>
+
+                                <div class="view overlay">
+
+                                <img class="card-img-top img-user" src="./dist/images/profile/hombre.svg" alt="Card image cap">
+
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+ 
+                                </div>  
+                            
+                                <div class="card-body p-2">
+                                    
+                                    <div class="col-md-12">
+                                        Nombre : <span class="card-title" style="font-size:small" ng:bind="row.nombres + ' ' + row.apellidos"></span><br>
+                                        Documento :<span class="card-title" style="font-size:small" ng:bind="row.documento_identidad"></span>
+                                    
+                                    </div>
+                                    
+                                </div>
+                                
+                                <div class="card-body p-2 text-center">
+                            
+                                    <btn  title="Asignar Curso" click="getMisCursos(row);" type="success" size="sm" spiner="row.spinner">
+                                    </btn>
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row btn-sync mt-4">
+
+            <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+        
+        </div>
+        
+    </div>
+</div> 
+
+<d-modal name="modal-credenciales" title="Credenciales" size="md">
+    <div class="container">
+        
+        <span> <strong>Email</strong> : {{credenciales.email}}</span>
+        <br>
+        <span> <strong>Contraseña</strong> : {{credenciales.documento_identidad}}</span>
+        
+    </div>
+</d-modal>
+
+<d-modal name="modal-asignacion-cursos" title="Asignación de Cursos" size="lg">
+    
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-9">
+                <app-inputsearch label="Selecione el curso que desea asignar al usuario ..."  model="cursoObject.id" list="cursosSinAsignar" options="{ 
+                    templateList: '
+                    <span>{{ item.name  | uppercase }}</span><br/>
+                    ', 
+                    itemShow: 'name', 
+                    onlyId: 'id' }" required="true" default="">
+                </app-inputsearch>
+            </div> 
+            <div class="col-md-3">
+                <btn  title="Añadir Curso" 
+                    disabled="cursoObject.id == null" 
+                    click="addCurso();" type="success" 
+                    size="sm" spiner="spinAdd">
+                </btn>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-12">
+
+        <div class="row mt-4"> 
+            
+            <div class="col-md-12 mt-4 mb-4 text-center">
+                <h6 class="h6">Lista de Curso(s) comprado(s) por {{clienteSeleccionado.nombres + ' ' + clienteSeleccionado.apellidos }}</h6>
+            </div>
+
+            <div class="col-md-12 text-center" ng:if="misCursos.length == 0">
+                <div class="alert alert-primary" role="alert">
+                    <i class="fas fa-frown"></i> 
+                    El usuario aún no ha comprado ningún curso.
+                </div> 
+            </div>
+
+            
+            <div class="col-md-4 col-sm-6 mb-2"  ng:if="misCursos.length > 0" ng:repeat="row in misCursos">
+                            
+                <div class="card">
+
+                    <div class="align-self-end card-close dropdown">
+                        <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="delete-menu fas fa-ellipsis-v"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-dark">
+                            <a class="dropdown-item" href="" ng:click="quitarCurso(row);">Quitar Curso</a>
+                        </div>
+
+                    </div>
+
+                    <div class="view overlay">
+
+                    <img class="card-img-top" ng:src="{{path + row.background_image }}" alt="Card image cap">
+
+                        <a>
+                            <div class="mask rgba-white-slight"></div>
+                        </a>
+
+                    </div>  
+                
+                    <div class="card-body p-2">
+                        <label class="card-title mb-0" ng:bind="row.name"></label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</d-modal>
+
+
+
+<d-modal name="modal-crud" title="{{titleModal | uppercase}}" size="lg">
+        
+    <form name="forms.menu" class="text-center" ng:submit="createCourse();">
+             
+        <div class="container">
+
+            <div class="row justify-content-center">
+            
+                <div class="col-md-12">
+            
+                    <div class="row">
+            
+                        <div class="col-md-6">
+
+                            <input-text 
+                                title="Nombres" 
+                                model="object.nombres" name="nombres" 
+                                form="forms.menu.nombres" 
+                                placeholder="Nombres" 
+                                maxl="250" minl="3" 
+                                req="true"
+                            />
+                
+                        </div>
+
+                        <div class="col">
+                            
+                            <input-text 
+                                title="Apellidos" 
+                                model="object.apellidos" name="apellidos" 
+                                form="forms.menu.apellidos" 
+                                placeholder="Apellidos" 
+                                maxl="250" minl="3" 
+                                req="true"
+                            />
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+            
+                        <div class="col-md-6">
+
+                            <input-text 
+                                title="Documento de Identidad" 
+                                model="object.documento_identidad" name="documento_identidad" 
+                                form="forms.menu.documento_identidad" 
+                                placeholder="Documento de identidad" 
+                                maxl="250" minl="3" 
+                                req="true"
+                            />
+                
+                        </div>
+
+                        <div class="col">
+                            
+                            <input-email 
+                                title="Email" 
+                                model="object.email" name="email" 
+                                form="forms.menu.email" 
+                                placeholder="Email" 
+                                maxl="250" minl="3" 
+                                req="true"
+                            />
+
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+                
+        <div class="container" align="center">
+
+            <div class="row justify-content-center">
+            
+                <div class="row">
+
+                    <btn  title="{{ title_button }}" disabled="forms.menu.$invalid"
+                        click="createCliente();" type="success" size="sm" spiner="spin" form="forms.menu">
+                    </btn>
+
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</d-modal>

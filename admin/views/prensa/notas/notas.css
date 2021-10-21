@@ -1,0 +1,17 @@
+.ta-editor {
+    min-height: 300px;
+    height: auto;
+    overflow: auto;
+    font-family: inherit;
+    font-size: 100%;
+  }
+  
+.my-small-area .ta-editor{
+    height: 10px;
+}
+
+.prensa-detalle {
+    list-style: none;
+    text-align: left;
+    margin: 1em 0em;
+}

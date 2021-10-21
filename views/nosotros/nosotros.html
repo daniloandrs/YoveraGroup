@@ -1,0 +1,131 @@
+
+<loader ng:show="loader"></loader>
+    
+
+<div ng:init="Init();" ng:show="!loader">
+    
+    <div class="fondo-image" style="background-image: url('{{path + nosotros.banner}}');"></div>
+
+    <div class="container padding-bottom-3x padding-top-3x">
+
+        <div class="row align-items-center padding-bottom-2x mt-4">
+         
+            <div class="col-md-5">
+                <div id="owl-imagenes" class="owl-carousel">
+                    <div class="item" ng:repeat="curso in nosotros.archivos">
+                        <img class="d-block mx-auto" style="border-radius: 10px;" 
+                        ng:src="{{ path + curso.directorio + '/' + curso.url }}" alt="item">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 text-md-left text-center">
+                <div class="mt-30 hidden-md-up"></div>
+                <h2>{{nosotros.titulo}}</h2>
+                <div dir-html-compile="nosotros.descripcion"></div>
+            </div>
+        </div>
+
+        <!-- 
+        <div class="row">
+
+            <div class="container-fluid">
+                
+                <ul class="nav nav-pills justify-content-center" role="tablist">
+
+                    <li class="nav-item">
+                        <a 
+                            class="nav-link" 
+                            ng:class="{'active' : tab == 'tab_1' }"
+                            ng:click="changeTab('tab_1');"
+                        >   
+                            <i class="icon-help-circle"></i>
+                            Nostros                            
+                        </a>
+
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link"
+                            ng:class="{'active' : tab == 'tab_2' }"
+                            ng:click="changeTab('tab_2');"
+                        >
+                            <i class="icon-book-open"></i>
+                            Misión
+                        </a>
+
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a  class="nav-link" 
+                            ng:class="{'active' : tab == 'tab_3' }"
+                            ng:click="changeTab('tab_3');"
+                        >
+                            <i class="icon-eye"></i>
+                            Visión
+                        </a>
+
+                    </li>
+ 
+                </ul>
+
+                <div class="tab-content">
+                    
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_1' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.descripcion"
+                            >
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_2' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.mision"
+                            >
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="tab-pane fade" ng:class="{'active show' : tab == 'tab_3' }">
+                        
+                        <div class="row">
+                            <div class="col-md-10 m-auto text-center border p-2" 
+                                dir-html-compile="nosotros.vision"
+                            >
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+        -->
+    </div>
+
+    <div class="pi-section-w pi-shadow-inside-top pi-section-base">
+        <div class="pi-texture" style="background: url(dist/images/hexagon.png) repeat;"></div>
+        <div class="pi-section pi-padding-top-60 pi-padding-bottom-40 pi-text-center">
+    
+            <p class="lead-30">
+                <span class="pi-weight-400">Anímese, </span><span class="pi-text-white"> tenga un proyecto con nosotros. </span>
+    
+                <a class="btn btn-info" href="#/contacto" style="margin-left: 25px;">
+                    <i class="icon-mail pi-icon-left"></i> Contáctenos ahora!
+                </a>
+    
+            </p>
+    
+        </div>
+    </div>
+
+</div>

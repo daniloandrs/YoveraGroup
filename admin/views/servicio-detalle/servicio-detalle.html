@@ -1,0 +1,196 @@
+
+<div class="dn-roles" ng:init="Init();">
+
+    <div class="card mb-2">
+        
+        <div class="card-body mt-0 mb-0 pb-0">
+            <a href="#/servicios">
+                <i class="fa fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="card-body pb-0 pt-0" style="padding-bottom: 0em;">
+            <div class="col-md-12 mb-2">
+                <div class="row">
+                    <h5>
+                        <i class="fas fa-cubes"></i>
+                        Sub Servicios - {{ servicio.nombre }}
+                    </h5>
+                </div>
+            </div>
+        </div>
+    
+        <div class="card-body pt-0 pb-0">
+            <div class="row">                
+                <div class="col-md-4 m-auto text-center">
+                    <btn type="success" title="Nuevo" icon="plus" center="true" click="openModal();"></btn>
+                </div>
+            </div>
+        </div> 
+
+        <div class="row btn-sync" ng:if="loader">
+            <loader type="view-loading"></loader>	
+        </div>
+
+        <div ng:if="!loader" class="card-body">
+            
+            <div class="accordion md-accordion" id="accordionTemary" role="tablist" aria-multiselectable="true">
+
+                <div class="col-md-12 text-center" ng:if="servicio.subservicios.length == 0">
+    
+                    <div class="alert alert-primary" role="alert">
+    
+                        <i class="fas fa-frown"></i> Aún no ha añadido ninguna sub-servicio.
+                    
+                    </div>
+    
+                </div>
+    
+    
+                <div class="card mb-2 border" ng:repeat="sub in servicio.subservicios | orderBy : '-numeration' | filter : search" 
+                ng:if="servicio.subservicios.length > 0">
+            
+                    <div class="card-header" role="tab" id="{{ 'head_' + sub.id }}">
+    
+                        <div class="dropdown float-left">
+                            <button 
+                                class="btn btn-sm btn-primary m-0 mr-3 pb-0 pt-0 pl-2 pr-2 dropdown-toggle" 
+                                type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            >
+                              <i class="fas fa-pencil-alt pr-2"></i>      
+                            </button>
+                            
+                            <div class="dropdown-menu dropdown-primary">
+                                <a class="dropdown-item" ng:click="editSub(sub);">Editar</a>
+                                <a class="dropdown-item" ng:click="deleteSub(sub);">Eliminar</a> 
+                                <a class="dropdown-item" ng:click="addImages(sub);">Añadir Imágenes</a>   
+                            </div>
+    
+                        </div>
+    
+                        <a 
+                            data-toggle="collapse" data-parent="#accordionTemary" 
+                            ng:click="toggleAccordion(sub,'body_' + sub.id);" 
+                            aria-expanded="true" aria-controls="{{ 'body_' + sub.id }}"
+                            ng:class="{'collapsed' : sub.collapsed }"    
+                        >
+                        
+                            <h5 class="mb-0 text-bold color-gris">
+                               {{ sub.nombre }}
+                                <i class="fas fa-angle-down rotate-icon"></i>
+                        
+                            </h5>
+    
+                        </a>
+    
+                    </div>
+                
+                    <div id="{{ 'body_' + sub.id }}" class="collapse" role="tabpanel" aria-labelledby="{{ 'head_' + sub.id }}" data-parent="#accordionTemary">
+    
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12 text-center" ng:if="sub.archivos.length == 0">
+                                    <h6 class="h6">Ninguna imagen añadida</h6>
+                                </div>
+                                <div class="col-md-3" ng:repeat="image in sub.archivos" ng:if="sub.archivos.length > 0">
+                                    
+                                    <loader type="loading" ng:if="image.spin"></loader>
+
+                                    <div class="dropdown" style="position: absolute;" ng:if="!image.spin">
+                                        <a class="btn-floating btn-close btn-sm" type="button"  id="dropdown_base" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="delete-menu fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-dark">
+                                            <a class="dropdown-item" href="" ng:click="deleteServicio(image);">Eliminar</a>
+                                        </div>
+                    
+                                    </div>
+                                    <div class="container-fluid row border m-0 p-0" ng:if="!image.spin">
+                                        <div class="col-md-12 p-0 m-0">
+                                            <img style="width:100%" ng:src="{{path + image.directorio + '/' + image.url }}" alt="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+            
+                </div>
+    
+            </div>
+
+        </div>  
+
+    </div> 
+
+</div>
+
+<d-modal name="modal-galeria" title="Añadir Imágenes" size="lg">
+    <form ng:submit="sendDataEventUpdate();" name="formEdit">
+    
+        <div class="row">
+        
+            <div class="container-fluid">
+                    
+                <div id="myGalleryBook" class="dropzone down_images"></div>
+                
+            </div>
+
+        </div>
+    
+        <div class="fix-col justify-content-center text-center">
+            <button class="btn btn-info btn-sm" 
+                ng:disabled = "spin_gallery || dropzone.getQueuedFiles().length == 0 "
+                ng:click = "sendDataEvent();">
+                {{spin_gallery ? 'Enviando ' : 'Guardar'}}
+                <i ng:if="spin_gallery" class=" fa fa-spin fa-spinner"></i>
+                
+            </button>
+
+        </div>
+    </form>
+</d-modal>
+
+<d-modal name="modal-base" title="Registro de sub servicio" size="lg">
+    <form name="forms.base" ng:submit="save();">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input-text 
+                        title="Nombre del sub servicio" 
+                        model="object.nombre" name="nombre" 
+                        form="forms.base.nombre" 
+                        placeholder="Nombre" 
+                        maxl="250" minl="3" 
+                        req="true"
+                    />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <fieldset>
+                            <div>
+                                <div id="toolbar">
+                                </div>
+                                <div id="editor">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>      
+        </div>
+    
+        <div class="fix-col justify-content-center">            
+            <btn
+                title="Registrar" type ="info"  size="sm" spiner="spinForm" 
+                disabled="(forms.base.$invalid || spinForm) "
+                form="forms.base"
+            ></btn>
+        </div>
+
+    </form> 
+    
+</d-modal>

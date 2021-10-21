@@ -1,0 +1,151 @@
+
+<div class="component-Init" ng:init="Init();">
+
+    <breadcrumb></breadcrumb>
+
+    <div class="card">
+        
+        <div class="col-md-12">
+
+            <div class="row">
+            
+                <div class="col-md-6 m-auto">
+                
+                    <btn 
+                        icon   = "plus" 
+                        size   = "sm" 
+                        title  = "Nuevo" 
+                        click  = "openModalAdd();"
+                        type   = "success"
+                        center = "text-start"
+                    ></btn>  
+                
+                </div>
+
+                <div class="col-md-6">
+
+                    <div class="form-row">
+                    
+                        <input-text
+                            style = "width: 98%;"
+                            title = "Buscar por nombre"
+                            name  = "name"
+                            model = "search"
+                        ></input-text> 
+                    
+                    </div>
+                
+                </div>
+
+            </div>
+
+        </div>
+        
+        <div class = "row btn-sync" ng:show = "spinView">
+            
+            <loader type="view-loading"></loader>	    
+        
+        </div>
+
+        <div ng:show = "!spinView" class = "col-md-12">
+
+            <div class = "row">
+            
+                <div class = "col-md-4 col-sm-6 col-xs-12" dir-paginate = "item in listData | filter:search|itemsPerPage:6" pagination-id = "item.id">
+                    
+                    <div class = "card mb-4">
+                    
+                        <div class="align-self-end card-close dropdown">
+                    
+                            <a class = "btn-floating btn-close btn-sm" type = "button"  id = "dropdown_{{item.id}}" data-toggle = "dropdown" aria-haspopup = "true" aria-expanded="false">
+                                
+                                <i class="delete-menu fas fa-ellipsis-v"></i>
+                            
+                            </a>
+                            
+                            <div class = "dropdown-menu dropdown-dark">
+
+                                <a class = "dropdown-item" ng:click = "editItem(item);">Editar</a>
+
+                                <a class = "dropdown-item" ng:click = "deleteItem(item);">Eliminar</a>
+                              
+                            </div>
+
+                        </div>
+    
+                        <div class = "card-body">    
+
+                            <div class = "col-md-12">
+                            
+                                <h5 class = "card-title text-center" style = "font-size: medium" ng:bind = "item.nombre"></h5>        
+                            
+                            </div>        
+                            
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row btn-sync mt-4">
+                
+                <dir-pagination-controls pagination-id="menu.id"></dir-pagination-controls>
+            
+            </div>
+            
+        </div>
+
+    </div>
+
+</div>   
+   
+
+<d-modal name = "general-modal" title = " {{ titleModal }} ">
+
+    <form name="forms.rol" class="text-center" ng:submit="sendData();">
+            
+        <div class="form-row">
+
+            <div class="col-md-12">
+                
+                <input-text 
+                    title="Nombre" model="objectModel.nombre" name="nombre"  req="true"
+                    form="forms.rol.nombre" placeholder="Nombre" maxl="25" minl="4"
+                ></input-text>
+
+            </div>
+
+            <div class="col-md-12">
+                
+                <input-text 
+                    title="Descripción" model="objectModel.descripcion" name="descripcion"  req="true"
+                    form="forms.rol.descripcion" placeholder="descripcion" maxl="255" minl="4"
+                ></input-text>
+
+            </div>
+
+            <div class="col-md-12">
+                
+                <input-number 
+                    title="Nivel" model="objectModel.nivel" name="nivel"  req="true"
+                    form="forms.rol.nivel" placeholder="nivel"
+                ></input-number>
+
+            </div>
+            
+
+        </div>
+
+        <btn 
+            title  = "{{ titleButton }}" 
+            type   = "{{ create_opcion ? 'success' : 'warning' }}" 
+            size   = "sm" 
+            spiner = "spin_form" 
+            form   = "forms.rol"
+        ></btn>
+
+    </form>
+
+</d-modal>

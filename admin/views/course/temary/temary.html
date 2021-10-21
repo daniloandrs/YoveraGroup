@@ -1,0 +1,426 @@
+
+<div ng:init="Init();">
+
+    <div class="row btn-sync" ng:show="loader">
+        
+        <loader type="view-loading"></loader>	
+
+    </div>
+
+
+    <div ng:show="!loader">
+
+        <div class="col-md-12">
+
+            <div class="row">
+
+                <div class="col-md-7 m-auto">
+                    <a href="#/cursos">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <label class="s-mb-1 m-mb-0 m-0">
+
+                        <strong>Temario del curso : </strong>
+                        
+                        <label class="m-0 h4" ng:bind="course.name"></label>
+                    
+                    </label>
+
+                </div>
+    
+                <div class="col-md-5 m-auto">
+                
+                    <div class="input-group md-form form-sm form-2 pl-0">
+    
+                        <input 
+                            class="form-control my-0 py-1 input-search" 
+                            type="text" 
+                            placeholder="Buscar por nombre" 
+                            aria-label="Search"
+                            ng:model="search"
+                        >
+                        
+                        <div class="input-group-append">
+                            
+                            <span class="input-group-text" id="basic-text1">
+                                
+                                <i class="fas fa-search text-grey" aria-hidden="true"></i>
+                            
+                            </span>
+                        
+                        </div>
+    
+                    </div>
+    
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-12 p-0 m-auto text-center">
+
+            <a class="btn-floating btn-sm btn-primary waves-effect" ng:click="addTemary();">
+                
+                <i class="fas fa-plus"></i>
+            
+            </a>
+
+        </div>
+    
+        <div class="accordion md-accordion" id="accordionTemary" role="tablist" aria-multiselectable="true">
+
+            <div class="col-md-12 text-center" ng:if="temaryList.length == 0">
+
+                <div class="alert alert-primary" role="alert">
+
+                    <i class="fas fa-frown"></i> Su temario esta vacío, puede comenzar a añadir un módulo.
+                
+                </div>
+
+            </div>
+
+
+            <div class="card mb-2" ng:repeat="temary in temaryList | orderBy : '-numeration' | filter : search" ng:if="temaryList.length > 0">
+        
+                <div class="card-header" role="tab" id="{{ 'head_' + temary.id }}">
+
+                    <div class="dropdown float-left">
+
+                        <button 
+                            class="btn btn-sm btn-primary m-0 mr-3 pb-0 pt-0 pl-2 pr-2 dropdown-toggle" 
+                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        >
+                            
+                          <i class="fas fa-pencil-alt pr-2"></i>
+                        
+                        </button>
+                        
+                        <div class="dropdown-menu dropdown-primary">
+                          
+                            <a class="dropdown-item" ng:click="editTemary(temary);">Editar</a>
+                          
+                            <a class="dropdown-item" ng:click="deleteTemary(temary);">Eliminar</a>
+
+                        </div>
+
+                    </div>
+
+                    <a 
+                        data-toggle="collapse" data-parent="#accordionTemary" 
+                        ng:click="toggleAccordion(temary,'body_' + temary.id);" 
+                        aria-expanded="true" aria-controls="{{ 'body_' + temary.id }}"
+                        ng:class="{'collapsed' : temary.collapsed }"    
+                    >
+                    
+                        <h5 class="mb-0 text-bold color-gris">
+                            
+                           {{temary.numeration + '. ' +  temary.title }}
+      
+                            <i class="fas fa-angle-down rotate-icon"></i>
+                    
+                        </h5>
+
+                    </a>
+
+                </div>
+            
+                <div id="{{ 'body_' + temary.id }}" class="collapse" role="tabpanel" aria-labelledby="{{ 'head_' + temary.id }}" data-parent="#accordionTemary">
+
+                    <div class="card-body pt-0">
+                    
+                        <div class="col-md-12 ml-4 mb-2">
+
+                            <span class="text-bold color-gris ml-4" ng:bind="temary.description"></span>
+                        
+                        </div>
+
+                        <div class="col-md-12 p-0 m-auto text-center">
+                            
+                            <a class=" btn-sm btn-primary waves-effect" ng:click="addClass(temary);">
+                                
+                                <i class="fas fa-plus"></i> Nueva clase
+
+                            </a>
+
+                        </div>
+                        
+                        <div class="col-md-12 text-center" ng:if="temary.temary_courses.length == 0">
+
+                            <div class="alert alert-primary" role="alert">
+            
+                                <i class="fas fa-frown"></i> 
+                                
+                               Ninguna clase añadida para este Módulo.
+
+                            </div> 
+            
+                        </div>
+
+                        
+
+                        <div class="col-md-12 p-0" ng:if="temary.temary_courses.length > 0">
+
+                            <ul style="list-style: none; padding:0">
+
+                                
+                                <li class="temary-list" ng:repeat="video in temary.temary_courses | orderBy : '-numeration'">
+
+                                    <div class="dropdown float-left">
+
+                                        <button 
+                                            class="btn btn-sm m-0 mr-2 pb-0 pt-0 pl-2 pr-2 dropdown-toggle btn-link" 
+                                            type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                        >
+                                            
+                                          <i class="fas fa-pencil-alt pr-2" style="font-size: 14px !important;"></i>
+                                        
+                                        </button>
+                                        
+                                        <div class="dropdown-menu dropdown-primary">
+                                          
+                                            <a class="dropdown-item btn-sm" ng:click="editClass(video);">Editar</a>                          
+                                            <a class="dropdown-item btn-sm" ng:click="deleteClass(video);">Eliminar</a>
+                                            <a class="dropdown-item btn-sm" ng:click="addDocumentos(video);">Adjuntar documentos.</a>
+                                            
+                                        </div>
+                
+                                    </div>
+
+                                    <div class="flex" ng:click="openVideo(video);">
+
+                                        <i class="far fa-play-circle"></i>
+                                        
+                                        <span>
+
+                                            {{temary.numeration + '.' +  video.numeration + '.- '}} {{ video.title }}
+                                        
+                                        </span>
+                                        
+                                        <time style="float: right;"> {{video.duration}} </time>
+
+                                    </div>
+
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+        
+            </div>
+
+        </div>
+    
+    </div>
+    
+</div>
+
+
+<d-modal name="modal-temary" title=" {{ create_opcion_module ? 'Nuevo Módulo ' : 'Editar Módulo' }}">
+        
+    <form name="forms.module" class="text-center" ng:submit="createModule();">
+        
+        <div class="container">
+
+            <div class="row justify-content-center">
+            
+                <div class="col-md-12">
+                    
+                    <input-text 
+                        title="Título" 
+                        model="objectModule.title" name="title" 
+                        form="forms.module.title" 
+                        placeholder="Título" 
+                        maxl="500" minl="3" 
+                        req="true"
+                        regex=".*"
+                    />
+
+                </div>
+
+                <div class="col-md-12">
+       
+                    <input-area 
+                        label="Descripción" 
+                        model="objectModule.description" name="description" 
+                        form="forms.module.description" 
+                        placeholder="Descripción" 
+                        maxl="500" minl="3" 
+                        req="true"
+                        regex=".*"
+                    />
+
+                </div>
+                
+            </div>
+
+            <btn 
+                title="{{title_button_module }}" size="sm" form="forms.module"
+                type="{{ create_opcion_module ? 'success' : 'warning'}}"  
+                disabled="forms.module.$invalid" spiner="spin_module"
+            ></btn>
+
+        </div>
+
+    </form>
+
+</d-modal>
+
+
+<d-modal name="modal-class" title=" {{ create_opcion_class ? 'Nueva Clase ' : 'Editar Clase' }}">
+        
+    <form name="forms.temary_class" class="text-center" ng:submit="createModule();">
+        
+        <wizard on-cancel="cancelEvent();" indicators-position="top">
+
+            <wz-step wz-title="" wz-icon="fa fa-course" wz-heading-title="General">
+                
+                <div class="row justify-content-center">
+            
+                    <div class="col-md-12">
+                        
+                        <input-text 
+                            title="Título" 
+                            model="objectClass.title" name="title" 
+                            form="forms.temary_class.title" 
+                            placeholder="Título" 
+                            maxl="500" minl="3" 
+                            req="true"
+                            regex=".*"
+                        />
+    
+                    </div>
+    
+                    <div class="col-md-12">
+           
+                        <input-area 
+                            label="Descripción" 
+                            model="objectClass.description" name="description" 
+                            form="forms.temary_class.description" 
+                            placeholder="Descripción" 
+                            maxl="500" minl="3" 
+                            req="true" 
+                            regex=".*"
+                        />
+    
+                    </div>   
+                     
+                </div>
+
+                <button class="btn btn-info btn-sm" wz-next 
+                    ng:disabled="(!forms.temary_class.title.$invalid && !forms.temary_class.description.$invalid) ? false : true"> 
+                    Siguiente <i class="fa fa-arrow-right"></i> 
+                </button>
+                
+            </wz-step>
+            
+            <wz-step wz-title="" wz-icon="fa fa-movie" wz-heading-title="Video">
+                
+                <section class="container">
+
+                    <div class="col-md-12">  
+                        
+                        <div id="video-upload" class="dropzone dropzone-video"></div>
+
+                    </div>
+
+                </section>
+
+                <div class="container" align="center">
+
+                    <div class="row justify-content-center">
+                
+                        <btn title="Regresar" wz-previous type="info" size="sm"></btn>
+
+                        <btn  title="{{ title_button_class }}" 
+                            disabled="" 
+                            wz-next click="createClass();" type="{{ create_opcion_class ? 'success' : 'warning'}}" 
+                            size="sm" spiner="spin_class" form="forms.temary_class">
+                        </btn>
+                    
+                    </div>
+
+                </div>  
+
+            </wz-step>
+
+        </wizard>
+
+    </form>
+
+</d-modal>
+
+<d-modal name="modal-video" title="Video">
+
+    <videogular class="second"
+        autoplay="autoplay" loop
+        vg-loop="true"
+        vg-player-ready="onPlayerReady($API)">
+        
+        <vg-media vg-src="sources.videosources" vg-native-controls="true"></vg-media>
+        
+    </videogular>
+    
+</d-modal>
+
+
+
+<d-modal name="modal-documentos" title="Adjuntar Documentos" size="lg">
+
+    <section class="container">
+
+        <div class="col-md-12">  
+            
+            <div id="adjuntos-upload" class="dropzone"></div>
+
+        </div>
+
+        <div class="fix-col justify-content-center text-center">
+            <button class="btn btn-info btn-sm" 
+                ng:disabled = "spin_adjuntos "
+                ng:click = "sendAdjuntos();">
+                {{spin_adjuntos ? 'Enviando ' : 'Guardar'}}
+                <i ng:if="spin_adjuntos" class=" fa fa-spin fa-spinner"></i>  
+            </button>
+        </div>
+
+    </section>
+
+
+    <div class="col-md-12" style="margin-top: 3em;">
+        <div class="row">
+            
+            <div class="col-md-12 text-center" ng:if="claseSelected.archivos.length == 0">
+                <h6 class="h6 p-0">Ninguna documento añadido</h6>
+            </div>
+
+            <div class="col-md-3 pb-4 m-auto" ng:repeat="file in claseSelected.archivos" ng:if="claseSelected.archivos.length > 0">
+
+                <loader type="loading" ng:if="file.spin"></loader>
+
+                <div class="dropdown" style="position: absolute;" ng:if="!file.spin">
+                    <a class="btn-floating btn-close btn-sm" type="button"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="delete-menu fas fa-ellipsis-v"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-dark">
+                        <a class="dropdown-item" href="" ng:click="deleteAdjunto(file);">Eliminar</a>
+                    </div>
+
+                </div>
+                <div class="container-fluid row border m-0 p-0" ng:if="!file.spin">
+                    <div class="col-md-12 text-center p-0 m-0">
+                        <span ng:class="assignIcon(file.tipo_archivo)"></span>
+                        <div class="w-100 bg-dark">
+                           <small class="text-white" style="font-size: 70%;"> {{file.url}}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</d-modal>

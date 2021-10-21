@@ -1,0 +1,103 @@
+
+<style>
+    .swal-alert {
+        z-index: 3050;
+    }
+    
+    .modal-header {
+        border-bottom: none;
+        background-color: #ffffff;
+    }
+
+    .modal-content {
+        border-radius: .1875rem;
+        border: none;
+        box-shadow: 0 10px 50px 0 rgba(0,0,0,.5);
+    }
+
+    .modal .modal-header .close {
+        color: #ff3636;
+        text-shadow: none;
+    }
+    
+    .modal .modal-header .close {
+        z-index: 10;
+    }
+
+    .text-success {
+        color: #18ce0f;
+    }
+
+    .text-error {
+        color: #ff3636;
+    }
+
+    .text-warning {
+        color: #ffb236;
+    }
+
+    .btn-outline-cancelar {
+        border: 1px solid #e8e8e8 !important;
+        box-shadow: none !important;
+        color: #606060;
+    }
+
+    .modal-footer {
+        border-top: none;
+    }
+
+
+    @media (max-width: 576px) {
+
+        .modal-content {
+            margin-top: 40%;
+        }
+    }
+</style>
+
+<div class="modal fade swal-alert" id="swal" tabindex="-1" role="dialog" aria-labelledby="swal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify " role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header shadow-none">
+                <p class="heading lead"></p>
+                <button 
+                    type="button" 
+                    class="close"  
+                    data-dismiss="modal" 
+                    aria-label="Close"
+                    ng:click="cancelar();"
+                >
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div ng:switch on="config().type" class="mb-2">
+                    <i class="fa fa-smile fa-3x  text-success" ng-switch-when="success"></i>
+                    <i class="fa fa-frown fa-3x  text-error" ng-switch-when="danger"></i>
+                    <i class="fa fa-info fa-3x  text-info" ng-switch-when="info"></i>
+                    <i class="fa fa-bell fa-3x  text-warning" ng-switch-when="warning"></i>
+                </div>
+                
+                <span ng:bind="config().message"> </span>
+
+            </div>
+            <div class="modal-footer justify-content-center">
+                <div ng:if="config().confirm">
+                    <button type="button" style="box-shadow: none;" class="btn waves-effect btn-sm btn-{{config().type}}" 
+                        ng:click="aceptar();">
+                        Aceptar
+                    </button>
+                    <button type="button"  class="btn btn-outline-cancelar btn-sm waves-effect" 
+                        ng:click="cancelar();">
+                        Cancelar
+                    </button>
+                </div>
+                <button ng:if="!config().confirm" type="button" class="btn btn-sm btn-{{config().type}} 
+                    waves-effect" ng:click="close();">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

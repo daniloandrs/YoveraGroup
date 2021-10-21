@@ -1,0 +1,32 @@
+.btn-close {
+
+    width: 25px !important;
+    height: 25px !important;
+    box-shadow: none !important;
+}
+
+.card-close { 
+    position: absolute;
+    margin: auto;
+}
+.delete-menu {
+    color: #b9b6b6 !important;
+}
+
+
+.btn.btn-link {
+
+    color: #005a93 !important;
+    
+}
+
+#editor {
+    height: 20em;
+    overflow: hidden;
+}
+
+.img-user {
+    width: 20%;
+    margin: 0px auto;
+    margin-top: 20px;
+}

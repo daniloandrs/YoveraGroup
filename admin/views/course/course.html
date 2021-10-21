@@ -1,0 +1,416 @@
+
+<div class="card" ng:init="Init();">
+
+    <div class="card-body" style="padding-bottom: 0em;">
+
+        <div class="col-md-12 mb-2">
+            
+            <div class="row">
+            
+                <h5>
+                    <i class="fas fa-chalkboard"></i>
+                     Mis cursos
+                </h5>
+
+            </div>
+
+        </div>
+
+        <div class="row justify-content-between">
+            
+            <div class="col-5">
+
+                <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();"></btn>
+            
+            </div>
+    
+            <div class="col-6 md-form form-sm search-box">
+
+                <i class="fa fa-search prefix icon-search"></i>
+                
+                <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+            
+            </div>
+        
+        </div>
+
+    </div>
+
+    <!-- end -->
+
+    <!-- buuton recargar -->
+    <div class="row  btn-sync mb-2">
+
+        <div class="align-self-end">
+        
+            <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+        
+                <i class="fa fa-spinner"></i>
+        
+            </a>
+        
+        </div>
+    
+    </div>
+    <!-- end -->
+
+    <div class="row btn-sync" ng:if="loader">
+        
+        <loader type="view-loading"></loader>	
+
+    </div>
+
+    <div ng:if="!loader" class="col-md-12">
+        
+        <div class="container-fluid">
+        
+            <div class="col-md-12 text-center" ng:if="listData.length == 0">
+
+                <i class="fas fa-folder-minus fa-2x"></i>
+                
+                <span ng:bind="'Ningún ' + modelTitle + ' encontrado.'"> </span>
+
+            </div>
+
+            <div class="row">
+                        
+                <div class="col-md-12 col-sm-12 "> 
+                
+                    <div class="row">
+
+                        <div class="col-md-4 col-sm-6 mb-2" dir-paginate="row in listData| filter:search | orderBy:'-id'|itemsPerPage:10" pagination-id="row.id">
+                            
+                            <div class="card">
+
+                                <div class="align-self-end card-close dropdown">
+
+                                    <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                        <i class="delete-menu fas fa-ellipsis-v"></i>
+
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-dark">
+                                        <a class="dropdown-item" href="" ng:click="editModal(row);">Editar</a>
+                                        <a class="dropdown-item" href="" ng:click="deleteModal(row);">Eliminar</a>
+                                        <a class="dropdown-item" href="" ng:click="addContenido(row);">Añadir Contenido</a>
+                                    </div>
+
+                                </div>
+
+                                <div class="view overlay">
+
+                                <img class="card-img-top" ng:src="{{path + row.background_image }}" alt="Card image cap">
+
+                                    <a>
+                                        <div class="mask rgba-white-slight"></div>
+                                    </a>
+ 
+                                </div>  
+                            
+                                <div class="card-body p-2">
+                            
+                                    <label class="card-title mb-0" ng:bind="row.name"></label>
+
+                                </div>
+                            
+                                <div class="rounded-bottom lighten-3 text-center">
+
+                                    <button class="m-2 p-0 btn btn-link" ng:click="seeTemary(row);">
+                                        
+                                        Ver Temario
+
+                                    </button>
+
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="row btn-sync mt-4">
+
+            <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+        
+        </div>
+        
+    </div>
+</div> 
+
+
+<d-modal name="modal-crud" title="{{titleModal | uppercase}}" size="fluid">
+        
+    <form name="forms.menu" class="text-center" ng:submit="createCourse();">
+        
+        <wizard on-cancel="cancelEvent();" indicators-position="top">
+
+            <wz-step wz-title="Información del Curso" wz-icon="fa fa-user " wz-heading-title="Información del Curso">
+            
+                <div class="container">
+
+                    <div class="row justify-content-center">
+                    
+                        <div class="col-md-7">
+                    
+                            <div class="row">
+                    
+                                <div class="col">
+
+                                    <input-text 
+                                        title="Nombre del Curso" 
+                                        model="object.name" name="name" 
+                                        form="forms.menu.name" 
+                                        placeholder="Nombre" 
+                                        maxl="250" minl="3" 
+                                        req="true"
+                                    />
+                        
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    
+                                    <input-area 
+                                        label="Descripción del Curso" 
+                                        model="object.description" name="description" 
+                                        form="forms.menu.description" 
+                                        placeholder="Descripción" 
+                                        maxl="500" minl="3" 
+                                        req="true"
+                                        regex=".*"
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    
+                                    <input-text 
+                                        type="date"
+                                        title="Fecha lanzamiento" 
+                                        model="object.relearse_date" name="relearse_date" 
+                                        form="forms.menu.relearse_date" 
+                                        placeholder="dd/mm/yyyy" 
+                                        min="0" 
+                                        req="true"
+                                    />
+
+                                </div>
+
+                                <div class="col">
+                                    
+                                    <input-number 
+                                        title="Precio del Curso" 
+                                        model="object.precio" name="precio" 
+                                        form="forms.menu.precio" 
+                                        placeholder="Precio del curso" 
+                                        min="0" 
+                                        req="true"
+                                    />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-5">
+                    
+                            <div class="row">
+                    
+                                <div class="col">
+
+                                    <input-select
+                                        list="listLevel" key="name"
+                                        label="Nivel del Curso" 
+                                        model="object.level_id" name="level_id" 
+                                        form="forms.menu.level_id" 
+                                        placeholder="Nivel" 
+                                        req="true"
+
+                                    ></input-select>
+                        
+                                </div>
+
+                            </div>
+                    
+                            <div class="row">
+
+                                <div class="col">
+                                    
+                                    <input-select
+                                        list="listCategory" key="name"
+                                        label="Categoría del Curso" 
+                                        model="object.category_id" name="category_id" 
+                                        form="forms.menu.category_id" 
+                                        placeholder="Categoría" 
+                                        req="true"
+
+                                    ></input-select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    
+                                    <input-select
+                                        list="listTypeCourse" key="name"
+                                        label="Tipo de Curso" 
+                                        model="object.type_course_id" name="type_course_id" 
+                                        form="forms.menu.type_course_id" 
+                                        placeholder="Tipo de Curso" 
+                                        req="true"
+
+                                    ></input-select>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+
+                                <div class="col">
+                                    
+                                    <input-select
+                                        list="listTeacher" key="name"
+                                        label="Instructor" 
+                                        model="object.teacher_id" name="teacher_id" 
+                                        form="forms.menu.teacher_id" 
+                                        placeholder="Instructor" 
+                                        req="true"
+
+                                    ></input-select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+
+                </div>
+                
+                <div class="container" align="center">
+
+                    <div class="row justify-content-center">
+                    
+                        <div class="col-10">
+ 
+                            <button type="submit" 
+                                ng-disabled="
+                                (!forms.menu.name.$invalid && !forms.menu.url.$invalid && !forms.menu.precio.$invalid 
+                                && !forms.menu.description.$invalid && !forms.menu.level_id.$invalid && !forms.menu.category_id.$invalid
+                                && !forms.menu.teacher_id.$invalid && !forms.menu.type_course_id.$invalid ) ? false : true"  
+                             class="btn btn-info btn-sm" wz-next>Continuar</button>
+                            
+                        </div>
+                    
+                    </div>
+                
+                </div>
+
+            </wz-step>
+
+            <wz-step wz-title="Multimedia" wz-icon="fa fa-user " wz-heading-title="Multimedia">
+                
+                <section class="container">
+
+                    <div class="col-md-12">
+
+                        <div class="row">
+
+                            <div class="col-md-12">
+
+                                <input-file 
+                                    model="object.background_image" type="image" options="optionsImage" 
+                                    title="Imagen de Fondo" default="object.default_background_image" delete-event="delete_();">
+                                </input-file>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <br>
+
+                <div class="container" align="center">
+
+                    <div class="row justify-content-center">
+                    
+                        <div class="row"> 
+
+                            <btn title="Regresar" wz-previous type="info" size="sm"></btn>
+
+                            <btn  title="{{ title_button }}" 
+                                disabled="(object.background_image == undefined)" 
+                                wz-next click="createCourse();" type="success" size="sm" spiner="spin" form="forms.menu" click="verify();">
+                            </btn>
+
+                        
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </wz-step>
+
+        </wizard>
+
+    </form>
+
+</d-modal>
+
+
+<d-modal name="modal-editor" title="Registro de contenido del Curso" size="lg">
+    <form name="forms.base" ng:submit="saveContenido();">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <fieldset>
+                            <div>
+                                <div id="toolbar">
+                                </div>
+                                <div id="editor">
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>      
+        </div>
+    
+        <div class="fix-col justify-content-center">            
+            <btn
+                title="Registrar" type ="info"  size="sm" spiner="spinForm" 
+                disabled="(forms.base.$invalid || spinForm) "
+                form="forms.base"
+            ></btn>
+        </div>
+
+    </form> 
+    
+</d-modal>

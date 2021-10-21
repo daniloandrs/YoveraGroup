@@ -1,0 +1,67 @@
+<div ng:init="Init();">
+    
+    <loader type="full-view" ng:show="loader"></loader>	
+    
+    <div ng:show="!loader">
+
+        <div class="page-title">
+            <div class="container">
+                <div class="column">
+                    <h1>Inicio de Sesión</h1>
+                </div>
+                <div class="column">
+                </div>
+            </div>
+        </div>
+
+        <div class="container padding-bottom-3x m-auto container-login">
+
+                <div class="col-md-8">
+                    <form class="row" ng:submit="login();" name="form">
+                        <div class="card-body">
+                            
+                            <h4 class="margin-bottom-1x">Bienvenido</h4>
+                            
+                            <div class="form-group input-group">
+                                <input class="form-control" type="email" placeholder="Email" required ng:model="object.email">
+                                <span class="input-group-addon"><i class="icon-mail"></i></span>
+                            </div>
+
+                            <div class="form-group input-group">
+                              <input class="form-control" type="password" placeholder="Password" required ng:model="object.password">
+                              <span class="input-group-addon"><i class="icon-lock"></i></span>
+                            </div>
+
+                            <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
+
+                            </div>
+                            <div class="text-center text-sm-right">
+                                
+                                <button class="btn btn-primary margin-bottom-none"  ng:if="!spinner" type="submit">Iniciar Sesión</button>
+
+                                <button class="btn btn-primary" type="button" ng:if="spinner" disabled>
+                                    <div class="spinner-border spinner-border-sm text-white mr-2" role="status"></div>Loading...
+                                </button>
+                            </div>
+                            
+                            
+
+                        </div>
+                    </form>
+                </div>
+
+        </div>
+
+        <div class="pi-section-w pi-shadow-inside-top pi-section-base">
+            <div class="pi-texture" style="background: url(dist/images/hexagon.png) repeat;"></div>
+            <div class="pi-section pi-padding-top-60 pi-padding-bottom-40 pi-text-center">
+                <p class="lead-30">
+                    <span class="pi-weight-400">Inicia Sesión, </span><span class="pi-text-white"> 
+                        y accede a tus cursos. </span>    
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

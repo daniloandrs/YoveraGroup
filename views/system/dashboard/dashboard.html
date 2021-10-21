@@ -1,0 +1,102 @@
+    
+    <breadcrumb></breadcrumb>
+    <!-- card --> 
+    <div class="card">
+
+        <!-- card - botton nuevo y input search -->
+        <div class="card-body" style="padding-bottom: 0em;">
+
+            
+            <div class="col-md-12 mb-2">
+                <div class="row">
+                    <h5><span class="fa fa-home"></span> Menú</h5>
+                </div>
+            </div>
+
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();">
+                    </btn>
+                </div>
+        
+                <div class="col-5 md-form form-sm search-box">
+                    <i class="fa fa-search prefix icon-search"></i>
+                    <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+                </div>
+            </div>
+
+        </div>
+    
+        <!-- end -->
+
+        <!-- buuton recargar -->
+        <div class="row  btn-sync mb-2">
+            <div class="align-self-end">
+                <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+                    <i class="fa fa-spinner"></i>
+                </a>
+            </div>
+        </div>
+        <!-- end -->
+
+        <div class="row btn-sync" ng:show="loader">
+            <loader type="view-loading"></loader>	    
+        </div>
+
+        <div ng:show="!loader" class="col-md-12">
+            <div class="row">
+                <div class="col-md-4 col-sm-6 col-xs-12" dir-paginate="menu in menus|filter:search|itemsPerPage:6" pagination-id="menu.id">
+                    <!--Card-->
+                    <div class="card mb-4">
+                        <div class="align-self-end card-close dropdown">
+                            <a class="btn-floating btn-close btn-sm" type="button"  id="dropdownMenu2"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="delete-menu fas fa-ellipsis-v"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-dark">
+                                <a class="dropdown-item" href="" ng:click="editModal(menu);">Editar</a>
+                                <a class="dropdown-item" href="" ng:click="deleteModal(menu);">Eliminar</a>
+                              </div>
+                        </div>
+    
+                        <div class="card-body">      
+                            <div class="col-md-12">
+                                <h5 class="card-title text-center" style="font-size: medium" ng:bind="menu.nombre"></h5>        
+                            </div>        
+                            
+                            <btn icon="pencil" title="Administrar" type="info btn-rounded"
+                                spiner="menu.spin_administrar" spinner-title="'Cargando...'" click="administrar(menu);">
+                            </btn>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row btn-sync mt-4">
+                <dir-pagination-controls pagination-id="menu.id"></dir-pagination-controls>
+            </div>
+            
+        </div>
+    </div>
+
+
+    <d-modal name="modal-menu" title="{{titleModal | uppercase}}">
+        
+        <form name="forms.menu" class="text-center" ng:submit="send(object)">
+            
+            <div class="form-row">
+                <div class="col-md-12">
+                    <input-text title="Nombre" model="object.nombre" name="nombre" form="forms.menu.nombre" 
+                    placeholder="Nombre" maxl="25" minl="4" req="true"/>
+                </div>
+
+                <div class="col-md-12">
+                    <input-select label="Rol" list="roles" model="object.rol_id" name="rol_id" form="forms.menu.rol_id" req="true"></input-select>
+                </div>
+            </div>
+
+            <btn title="{{title_button}}" type="{{ create_opcion ? 'success' : 'warning'}}" size="sm" spiner="spin" form="forms.menu"></btn>
+
+        </form>
+
+    </d-modal>

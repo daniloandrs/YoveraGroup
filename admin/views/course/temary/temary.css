@@ -1,0 +1,55 @@
+
+
+.input-search {
+    background-color: white !important;
+    border: 1px solid white !important;
+}
+
+.md-form.input-group .input-group-text {
+    background-color: #ffffff;
+    border: 1px solid #ffff !important;
+}
+
+.temary-list {
+    padding: 6px;
+    cursor: pointer;
+    margin: 2px;
+
+}
+
+.temary-list:hover {
+    background-color: #f2f2f2;
+}
+
+.dropzone-video {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+
+videogular video {
+
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+}
+
+.color-pdf {
+    color : #f11f10;
+}
+
+.color-word {
+    color: #0277d4;
+}
+
+.color-excel {
+    color: #4CAF50;
+}
+
+.color-ppt {
+    color: #FF5722;
+}
+
+.color-file {
+    color: #3F51B5;
+}

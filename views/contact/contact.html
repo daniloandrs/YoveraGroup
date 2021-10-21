@@ -1,0 +1,117 @@
+
+<loader ng:show="loader"></loader>	
+
+<div ng:init="Init();" ng:show="!loader">
+        
+    <div>
+
+        <div class="page-title">
+            <div class="container">
+                <div class="column">
+                    <h1>Datos de contacto</h1>
+                </div>
+                <div class="column">
+                    <ul class="breadcrumbs">
+                        <li><a href="#/">Inicio</a></li>
+                        <li class="separator">&nbsp;</li>
+                        <li>{{subServicio.nombre}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container padding-bottom-3x mb-1">
+            <div class="row">
+                <div class="col-md-7">
+
+                    <form class="row" ng:submit="send();" name="form">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="account-fn">Nombre</label>
+                                <input class="form-control" form="form.nombre" name="nombre" type="text" ng:model="object.nombre" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="account-email">Email</label>
+                                <input class="form-control" form="form.email"  name="email" type="email" ng:model="object.email" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="account-phone">Telefono</label>
+                                <input class="form-control" type="text" form="form.telefono" name="telefono"  ng:model="object.telefono" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="account-phone">Asunto</label>
+                                <input class="form-control" type="text" form="form.asunto" name="asunto" ng:model="object.asunto" required>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="account-phone">Mensaje</label>
+                                <textarea class="form-control" type="text" form="form.mensaje" name="mensaje" ng:model="object.mensaje" rows="5" required></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <hr class="mt-2 mb-3">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center">
+                                <div class="custom-control custom-checkbox d-block">
+                                </div>
+                                <button class="btn btn-primary margin-right-none" type="submit" ng:if="!spin">
+                                    Enviar mensaje  <i class="fa fa-send"></i>
+                                </button>
+
+                                <button class="btn btn-primary margin-right-none" disabled type="submit" ng:if="spin">
+                                    Enviando ... <i class="fa fa-send"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+
+                <div class="col-md-5">
+                    
+                    <h6 class="h6">
+                        {{configuraciones.form_contacto_titulo}}
+                    </h6>
+
+                    <p>
+                        {{configuraciones.form_contacto_descripcion}}
+                    </p>
+
+                    <ul class="list-icon">
+                        <li> <i class="icon-mail text-muted"></i>
+                            <a class="navi-link" href="mailto:{{configuraciones.form_contacto_email}}">
+                                {{configuraciones.form_contacto_email}}
+                            </a></li>
+                        <li> <i class="icon-phone text-muted"></i>{{configuraciones.form_contacto_telefono}}</li>
+                        <li> <i class="icon-clock text-muted"></i>{{configuraciones.form_contacto_direccion}}</li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="pi-section-w pi-shadow-inside-top pi-section-base">
+            <div class="pi-texture" style="background: url(dist/images/hexagon.png) repeat;"></div>
+            <div class="pi-section pi-padding-top-60 pi-padding-bottom-40 pi-text-center">
+                <p class="lead-30">
+                    <span class="pi-weight-400">Envianos , </span><span class="pi-text-white"> un mensaje y te responderemos a la brevedad. </span>    
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+</div>

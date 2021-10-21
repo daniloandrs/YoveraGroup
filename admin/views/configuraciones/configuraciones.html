@@ -1,0 +1,30 @@
+
+<div class="card" ng:init="Init();">
+
+    <div class="row btn-sync" ng:if="loader">
+        <loader type="view-loading"></loader>	
+    </div>
+
+    <div ng:if="!loader" class="col-md-12">
+        
+        <div class="container-fluid">
+        
+            <form name="form" ng:submit="add();">
+                <div class="col-md-12">
+                    <h4>Formulario de contacto</h4>
+                </div>
+                <div class="col-md-12">
+                    <input-text title="Titulo del Formulario de contacto" 
+                        model="object.form_contacto_titulo" name="form_contacto_titulo" 
+                        form="forms.menu.form_contacto_titulo" 
+                        placeholder="Titulo del formulario de contacto" maxl="250" 
+                        minl="3" req="true"
+                    />
+                </div>
+            </form>
+
+        </div>
+        
+    </div>
+
+</div>

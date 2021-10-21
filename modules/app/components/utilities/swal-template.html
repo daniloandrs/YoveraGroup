@@ -1,0 +1,46 @@
+
+<style>
+    .swal-alert {
+        z-index: 13050;
+    }
+</style>
+
+<div class="modal fade swal-alert" id="swal" tabindex="-1" role="dialog" aria-labelledby="swal" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-{{config().type}}" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-header d-flex justify-content-center">
+                <p class="heading" ng:bind="config().title"></p>
+            </div>
+            <div class="modal-body">
+                <div ng:switch on="config().type">
+                    <i class="fa fa-check-circle fa-4x animated rotateIn" ng-switch-when="success"></i>
+                    <i class="fa fa-times-circle fa-4x animated rotateIn" ng-switch-when="danger"></i>
+                    <i class="fa fa-info-circle fa-4x animated rotateIn" ng-switch-when="info"></i>
+                    <i class="fa fa-exclamation-circle fa-4x animated rotateIn" ng-switch-when="warning"></i>
+                </div>
+                
+                <span ng:bind="config().message"> </span>
+
+            </div>
+            <div class="modal-footer flex-center" style="justify-content: center;">
+                <div ng:if="config().confirm">
+                    
+                    <a type="button"  class="btn btn-sm btn-outline-secondary waves-effect" 
+                        ng:click="cancelar();">
+                        Cancelar
+                    </a>
+                    
+                    <a type="button"  class="btn btn-rounded btn-sm btn-{{config().type}} waves-effect" 
+                        ng:click="aceptar();">
+                        Aceptar
+                    </a>
+
+                </div>
+                <a ng:if="!config().confirm" type="button" class="btn btn-rounded btn-sm btn-outline-{{config().type}} 
+                    waves-effect" ng:click="close();">
+                    Cerrar
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

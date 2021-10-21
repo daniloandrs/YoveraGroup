@@ -1,0 +1,34 @@
+.img-curso {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-curso {
+    box-shadow: 0 2px 4px rgba(174,190,205,.3);
+}
+
+.card-curso:hover{
+    box-shadow: 0 4px 6px rgba(174,190,205,.4);
+}
+
+.card-body-curso {
+    height: 10em; 
+}
+
+.inline-flex {
+    display: inline-flex;
+    justify-content: space-between;
+}
+
+.truncate-text-3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}
+
+.smaller-font-size {
+    font-size: 1.150rem;
+}
+

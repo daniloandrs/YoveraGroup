@@ -1,0 +1,183 @@
+.filter-course {
+    margin: 0;
+    padding: 20px 0;
+}
+
+.container-cursos {
+    margin-top: 2.5em;
+}
+
+.temario-header {
+    background-color: #f9f9f9 !important;
+    border-radius: 8px !important;
+}
+.border-none {
+    border:none;
+}
+
+.timeline .timeline-item {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px 0px;
+}
+
+.timeline .timeline-item:hover {
+    background-color: #0691ff3b;
+}
+
+  .timeline .timeline-item .timeline-item-marker {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .timeline .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    font-size: 0.875rem;
+    width: 6rem;
+    color: #a2acba;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .timeline .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 3rem;
+    width: 3rem;
+    background-color: #eff3f9;
+    border-radius: 100%;
+  }
+  .timeline .timeline-item .timeline-item-content {
+    padding-top: 0;
+    padding-bottom: 2rem;
+    padding-left: 1rem;
+    width: 100%;
+  }
+  .timeline .timeline-item:last-child .timeline-item-content {
+    padding-bottom: 0 !important;
+  }
+  
+  @media (min-width: 576px) {
+    .timeline .timeline-item .timeline-item-marker {
+      flex-direction: row;
+      transform: translateX(1.625rem);
+      margin-bottom: 0;
+    }
+    .timeline .timeline-item .timeline-item-marker .timeline-item-marker-text {
+      margin-right: 0.5rem;
+      margin-bottom: 0;
+    }
+    .timeline .timeline-item .timeline-item-content {
+      padding-top: 0.75rem;
+      padding-bottom: 3rem;
+      padding-left: 3rem;
+      border-left: solid 0.25rem #eff3f9;
+    }
+    .timeline .timeline-item:last-child .timeline-item-content {
+      border-left-color: transparent;
+    }
+  }
+  .timeline.timeline-sm .timeline-item .timeline-item-marker {
+    transform: translateX(0.875rem);
+  }
+  .timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    width: 3rem;
+    font-size: 0.7rem;
+  }
+  .timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    height: 1.5rem;
+    width: 1.5rem;
+    font-size: 0.875rem;
+  }
+  .timeline.timeline-sm .timeline-item .timeline-item-marker .timeline-item-marker-indicator .feather {
+    height: 0.75rem;
+    width: 0.75rem;
+  }
+  .timeline.timeline-sm .timeline-item .timeline-item-content {
+    /*font-size: 0.875rem;*/
+    padding-top: 0.15rem;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  
+  .timeline.timeline-xs .timeline-item .timeline-item-marker {
+    transform: translateX(0.5625rem);
+  }
+  .timeline.timeline-xs .timeline-item .timeline-item-marker .timeline-item-marker-text {
+    width: 3rem;
+    font-size: 0.7rem;
+  }
+  .timeline.timeline-xs .timeline-item .timeline-item-marker .timeline-item-marker-indicator {
+    height: 0.875rem;
+    width: 0.875rem;
+    font-size: 0.875rem;
+    border: 0.125rem solid #fff;
+    margin-top: -0.125rem;
+  }
+  .timeline.timeline-xs .timeline-item .timeline-item-content {
+    font-size: 0.875rem;
+    padding-top: 0;
+    padding-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+  
+
+  .redirect-producto {
+    font-size: medium;
+    text-decoration: none;
+  }
+
+
+.video-js .vjs-big-play-button {
+    border: none !important;
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
+
+.video-js {
+    background-color: #0000;
+}
+
+.video-js .vjs-tech {
+    border-radius: .8rem;
+}
+.vjs-poster {
+    background-color: #00000000;
+}
+
+
+.table th, .table td {
+  padding: 0 5px;
+  vertical-align: middle;
+  border-top: 1px solid #dee2e6;
+}
+
+
+.color-pdf {
+  color : #f11f10;
+}
+
+.color-word {
+  color: #0277d4;
+}
+
+.color-excel {
+  color: #4CAF50;
+}
+
+.color-ppt {
+  color: #FF5722;
+}
+
+.color-file {
+  color: #3F51B5;
+}

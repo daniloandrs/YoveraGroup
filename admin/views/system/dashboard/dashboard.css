@@ -1,0 +1,20 @@
+
+.btn-close {
+
+    width: 25px !important;
+    height: 25px !important;
+    box-shadow: none !important;
+}
+
+.card-close { 
+    position: absolute;
+    margin: -.5em .5em;
+}
+.delete-menu {
+    color: #b9b6b6 !important;
+}
+
+.flexcss{
+    display:flex;
+    flex-direction: row
+}

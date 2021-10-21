@@ -1,0 +1,130 @@
+<footer class="site-footer" style="background-image: url(../img/footer-bg.png);" ng:init="Init();">
+    
+    <div class="container">
+      
+        <div class="row">
+        
+            <div class="col-lg-4 col-md-6">
+          
+                <section class="widget widget-light-skin">
+                
+                    <h3 class="widget-title">Estamos trabajando para tí, ubícanos</h3>
+
+                    <div  class="google-map" id="map"></div>
+
+                </section>
+
+            </div>  
+
+            <div class="col-lg-4 col-md-6">
+                <!-- Mobile App Buttons-->
+                <section class="widget widget-light-skin">
+                    
+                    <h3 class="widget-title">Contáctanos</h3>
+                    <p class="text-white m-0">Teléfono(s) : </p>
+
+                    <p class="text-white m-0">{{configuraciones.form_contacto_telefono }}</p>
+
+                    <p class="text-white m-0">{{configuraciones.form_contacto_telefono_2 }}</p>
+                    
+                    <p class="text-white m-0">{{configuraciones.form_contacto_telefono_3 }}</p>
+                    
+                    <ul class="list-unstyled text-sm text-white">
+                        <li><span class="opacity-50">{{ configuraciones.dias_atencion}}:&nbsp;</span>
+                            {{configuraciones.horas_atencion}}
+                        </li>
+                        <li><span class="opacity-50">{{ configuraciones.dias_atencion_2}}:&nbsp;</span>
+                            {{configuraciones.horas_atencion_2}}
+                        </li>
+                    </ul>
+                    <p class="m-0">
+                        <a class="navi-link-light" href="mailto:{{configuraciones.form_contacto_email}}">
+                            {{configuraciones.form_contacto_email}}</a>
+                    </p>
+                    <p class="m-0">
+                        <a class="navi-link-light" ng:if="configuraciones.form_contacto_email_2" 
+                            href="mailto:{{configuraciones.form_contacto_email_2}}">
+                            {{configuraciones.form_contacto_email_2}}</a>
+                    </p>
+                    <p class="m-0">
+                        <a class="navi-link-light" ng:if="configuraciones.form_contacto_email_3" 
+                        href="mailto:{{configuraciones.form_contacto_email_3}}">
+                            {{configuraciones.form_contacto_email_3}}</a>
+                    </p>
+                    <br>
+                    <a class="social-button shape-circle sb-facebook sb-light-skin" href="#">
+                        <i class="socicon-facebook"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-twitter sb-light-skin" href="#">
+                        <i class="socicon-twitter"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-instagram sb-light-skin" href="#">
+                        <i class="socicon-instagram"></i>
+                    </a>
+                    <a class="social-button shape-circle sb-google-plus sb-light-skin" href="#">
+                        <i class="socicon-googleplus"></i></a>
+                
+                </section>
+            </div>
+
+            <div class="col-lg-4">
+                
+                <section class="widget widget-light-skin">
+                    
+                    <h3 class="widget-title">Envianos un mensaje</h3>
+
+                    <form class="row" ng:submit="send();" name="form">
+                        
+                        <div class="col-sm-6 mb-4">
+                            
+                            <div class="input-group input-light">
+                                <input class="form-control" form="form.nombre" name="nombre" type="text" ng:model="object.nombre" required>
+                                <span class="input-group-addon">
+                                    <i class="icon-user"></i>
+                                </span>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-sm-6 mb-4">
+                            
+                            <div class="input-group input-light">
+                                <input class="form-control" form="form.email"  name="email" type="email" ng:model="object.email" required>
+                                <span class="input-group-addon">
+                                    <i class="icon-mail"></i>
+                                </span>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-sm-12 mb-4">
+                            
+                            <div class="input-group input-light">
+                                <textarea class="form-control" type="text" form="form.mensaje" name="mensaje" ng:model="object.mensaje" rows="3" required>
+                                </textarea>
+                            </div>
+                    
+                        </div>
+
+                        <div class="col-sm-12">
+                            <button class="btn btn-primary btn-block mt-0" type="submit">Enviar</button>
+                        </div>
+
+                    </form>
+
+                </section>
+            
+            </div>
+      
+        </div>
+        
+        <hr class="hr-light mt-2 margin-bottom-2x hidden-md-down">
+
+        <p class="footer-copyright text-center">© Todos los derechos reservados. Hecho con &nbsp;
+            <i class="icon-heart text-danger"></i>
+            <a href="http://daniloandres.es" target="_blank"> &nbsp; para el mundo.</a>
+        </p>
+    
+    </div>
+  
+</footer>

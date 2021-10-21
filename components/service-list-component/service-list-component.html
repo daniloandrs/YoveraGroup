@@ -1,0 +1,26 @@
+<div class="gallery-wrapper" data-pswp-uid="1" ng:init="Init();">
+
+   <div class="row">
+
+		<div class="card-service col-sm-4 p-0"  ng:repeat="item in $ctrl.subServicios">	
+
+			<img  class="w-100 h-100" ng:src="{{ CONFIG.STORAGE + item.archivos[0].directorio + '/' + item.archivos[0].url }}" alt="Image">
+
+			<div class="card-body card-overlay">
+		
+				<div class="col-md-12">
+					<h6 class="card-title text-white text-bold">
+						{{item.nombre}}
+					</h6>
+			
+					<a class="btn btn-primary btn-sm btn-service" href="#/servicios/{{item.servicio_id}}/{{item.id}}">Ver información</a>
+
+				</div>
+				
+			</div>
+	  
+		</div>
+	
+	</div>
+
+</div>

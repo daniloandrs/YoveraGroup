@@ -1,0 +1,200 @@
+
+<loader ng:show="loader"></loader>
+    
+<div ng:init="Init();" ng:show="!loader">
+
+	<section class="hero-slider banner-curso" style="background-image: url(img/hero-slider/main-bg.jpg);">
+		<div class="item">
+			<div class="container padding-top-3x">
+				<div class="row justify-content-center align-items-center">
+					<div class="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
+						<div class="from-bottom">
+							<div class="h2 text-body mb-2 pt-1 fw-800">
+								{{detalleCurso.name}}
+							</div>
+							<div class="h6 text-body mb-4 pb-1">
+								<span class="text-small">
+									{{detalleCurso.description}}
+								</span>
+							</div>
+							<section class="widget widget-categories">
+								<ul>
+								  	<li>
+									  <a href=""><i class="fa fa-layer-group"></i> Nivel : {{detalleCurso.level.name}}</a>
+									</li>
+								  	<li>
+									  <a href=""><i class="fa fa-calendar-week"></i> Fecha de lanzamiento : {{ detalleCurso.release_date | date:'MMM d, y' }}</a>
+									</li>
+								  	<li>
+									  <a href=""><i class="fa fa-cubes"></i> Rubro :  {{detalleCurso.category.name}} </a>
+									</li>
+								</ul>
+							</section>
+
+						</div>
+						<a class="btn btn-info btn-sm scale-up delay-1" ng:click="adquirirCurso();">
+							<i class="icon-arrow-right"></i>&nbsp; Comprar por {{detalleCurso.precio | currency:'S/. ' }}
+						</a>
+					</div>
+
+					<div class="col-md-6 padding-bottom-2x mb-3">
+						<img class="d-block mx-auto w-100  border-radius" ng:src="{{ CONFIG.STORAGE + detalleCurso.background_image }}" alt="{{detalleCurso.name}}">
+					</div>
+				</div>
+			</div>  
+		</div>
+	</section>
+
+	<div class="container padding-bottom-3x mb-1 margin-top-3x">
+		<div class="row">
+			<div class="col-lg-8">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card card-about">
+							<div class="card-body">
+								<div dir-html-compile="detalleCurso.about"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<br><br><br>
+
+				<div class="row">
+					<div class="col-md-12">
+						<h3 class="temary-title">TEMARIO DEL CURSO</h3>
+					</div>
+					<div class="col-md-12">
+
+						<div class="accordion md-accordion" id="accordionTemary" role="tablist" aria-multiselectable="true">
+
+							<div class="col-md-12 text-center" ng:if="detalleCurso.temario.length == 0">
+				
+								<div class="alert alert-primary" role="alert">
+				
+									<i class="fas fa-frown"></i>Este curso aún no tiene temario.
+								
+								</div>
+				
+							</div>
+				
+				
+							<div class="card mb-2" ng:repeat="temary in detalleCurso.temario | orderBy : 'numeration' " ng:if="detalleCurso.temario.length > 0">
+						
+								<div class="card-header" role="tab" id="{{ 'head_' + temary.id }}">
+			
+									<a 	style="cursor: pointer;"
+										data-toggle="collapse" data-parent="#accordionTemary" 
+										ng:click="toggleAccordion(temary,'body_' + temary.id);" 
+										aria-expanded="true" aria-controls="{{ 'body_' + temary.id }}"
+										ng:class="{'collapsed' : temary.collapsed }"    
+									>
+										
+										<h6 class="text-muted text-lg text-uppercase">
+											{{temary.numeration + '. ' +  temary.title }}
+				
+										</h6>
+									</a>
+				
+								</div>
+							
+								<div id="{{ 'body_' + temary.id }}" class="collapse" role="tabpanel" aria-labelledby="{{ 'head_' + temary.id }}" data-parent="#accordionTemary">
+				
+									<div class="card-body pt-0">
+									
+										<div class="col-md-12 text-center mb-4" ng:if="temary.temary_courses.length == 0">
+				
+											<div class="alert alert-primary" role="alert">
+							
+												<i class="fas fa-frown"></i> 
+												
+											   Ninguna clase añadida para este Módulo.
+				
+											</div> 
+							
+										</div>
+				
+				
+										<div class="col-md-12 p-0" ng:if="temary.temary_courses.length > 0">
+				
+											<ul style="list-style: none; padding:0">
+												
+												<li class="temary-list" ng:repeat="video in temary.temary_courses | orderBy : '-numeration'">
+								
+													<div class="flex" ng:click="openVideo(video);">
+				
+														<i class="far fa-play-circle"></i>
+														
+														<span>
+				
+															{{temary.numeration + '.' +  video.numeration + '.- '}} {{ video.title }}
+														
+														</span>
+														
+														<time style="float: right;"> {{video.duration}} </time>
+				
+													</div>
+				
+												</li>
+				
+											</ul>
+				
+										</div>
+				
+									</div>
+				
+								</div>
+						
+							</div>
+				
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-lg-4">
+
+				<div class="sidebar-toggle position-left">
+					<i class="icon-filter"></i>
+				</div>
+				
+				<aside class="sidebar position-left">
+
+					<section class="widget widget-featured-posts">
+						<h3 class="widget-title">Te puede interesar</h3>
+						
+						<div class="entry" ng:repeat="curso in listCursos">
+							<div class="entry-thumb">
+								<a href="#/cursos/{{curso.url_course}}">
+									<img ng:src="{{ CONFIG.STORAGE + curso.background_image }}" alt="{{curso.name}}">
+								</a>
+							</div>
+							<div class="entry-content">
+								<h4 class="entry-title">
+									<a href="#/cursos/{{curso.url_course}}">
+									   {{curso.name}}
+									</a>
+								</h4>
+								<span class="entry-meta">por {{curso.teacher.name}}</span>
+							</div>
+						</div>
+					</section>
+
+					<section class="widget widget-categories">
+						<h3 class="widget-title">Nuestros Servicios</h3>
+						<ul>
+							<li ng:repeat="item in servicios">
+								<a ng:bind="item.nombre" href="#/servicio/{{item.id}}"></a>
+							</li>
+						</ul>
+					</section>
+					
+					
+				</aside>
+			</div>
+		</div>
+	</div>
+
+</div>
+

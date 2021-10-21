@@ -1,0 +1,123 @@
+
+/* utils */
+	
+@import url('font-awesome.css');
+@import url('angular-wizard.css');
+@import url('owl.carousel.min.css');
+@import url('owl.theme.default.min.css');
+@import url('pi.style.css');
+@import url('vendor.min.css');
+@import url('styles.min.css');
+@import url('toast.css');
+@import url('video-js.css');
+@import url('lightgallery.min.css');
+
+body {
+	background: #ffffff;
+	padding: 0;
+}
+
+#main {
+	margin-left: 18em;
+}
+
+.navbar-theme {
+	background-color:  #ffffff !important;
+}
+
+body::-webkit-scrollbar {
+	width: 7px;     
+	height: 5px;  
+}
+
+body::-webkit-scrollbar-thumb {
+	background: #656363;
+	border-radius: 4px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+	background: #656363;
+	box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+body::-webkit-scrollbar-thumb:active {
+	background-color: #656363;
+}
+
+body::-webkit-scrollbar-track {
+	background: #fffcfa;
+	border-radius: 4px;
+}
+
+body::-webkit-scrollbar-track:hover,
+body::-webkit-scrollbar-track:active {
+	background: #d4d4d4;
+}
+
+.btn-paginate {
+	background-color: #353535  !important;
+}
+
+.btn-paginate:active {
+	background: #F44336  !important;
+}
+
+.btn-paginate:hover {
+	background: #888888  !important;
+}
+
+.pagination .page-item .page-link {
+	color: #ffffff !important;
+	background: #6b6767 !important;
+}
+
+.pagination .page-link:hover {
+	background-color: #b5b3b3 !important;
+}
+
+.pagination .page-item.active>.page-link {
+	background-color: #ff3547 !important;
+	box-shadow: 0px 5px 25px 0px rgb(29, 23, 23);
+}
+
+
+a {
+	text-decoration: none;
+}
+
+
+.owl-carousel .owl-prev, .owl-carousel .owl-next {
+	display: block;
+	position: absolute;
+	top: 50%;
+	width: 40px;
+	height: 40px;
+	margin-top: -40px;
+	transition: opacity .3s;
+	border: 1px solid #e5e5e5;
+	border-radius: 30px;
+	background-color: #fff;
+	color: #232323;
+	line-height: 38px;
+	text-align: center;
+	opacity: .75;
+}
+
+
+.btn-whatsapp {
+	display:block;
+	width:70px;
+	height:70px;
+	color:#fff;
+	position: fixed;
+	right:20px;
+	bottom:20px;
+	border-radius:50%;
+	line-height:80px;
+	text-align:center;
+	z-index:999;
+}
+
+.text-yellow {
+    color: #ebaf1c !important;
+}

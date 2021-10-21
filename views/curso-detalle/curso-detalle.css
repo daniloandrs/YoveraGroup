@@ -1,0 +1,51 @@
+.banner-curso{
+    min-height: 480px;
+    background-color: #eff3f5;
+    box-shadow: none;
+}
+
+.border-radius {
+    border-radius: 10px;
+}  
+
+.fw-800 {
+    font-weight: 800;
+}
+
+.card-about {
+    border-left: 4px solid #1192ee;
+    border-radius: .3rem;
+}
+
+.card-about:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    border-radius: 100%;
+    background: rgba(146,161,176,.15);
+    filter: blur(5px);
+    transform: translateY(calc(100% - .75rem));
+    z-index: -1;
+}
+
+.temary-list {
+    padding: 6px;
+    cursor: pointer;
+    margin: 2px;
+
+}
+
+.temary-list:hover {
+    background-color: #f2f2f2;
+}
+
+.temary-title {
+    line-height: 1.3;
+    font-weight: 800;
+    letter-spacing: .015em;
+    color: #2a3b47;
+    font-size: 1.5rem;
+}

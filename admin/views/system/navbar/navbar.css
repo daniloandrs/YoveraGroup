@@ -1,0 +1,37 @@
+#nav-topbar {
+	border-radius: 0;
+	flex-direction: row;
+	position: fixed;
+    background: #007bff;
+}
+
+#nav-topbar .brand-container {
+	width: 225px;
+	/* Should match width of #nav-sidebar */
+	padding-left: 1rem;
+}
+
+#topbar-menu-container {
+	flex-direction: column;
+}
+.navbar {
+    z-index: 1030;
+}
+.navbar-brand i {
+	margin-right: .5rem;
+}
+
+.navbar-toggler {
+	font-size: 1.5rem;
+	margin-top: .25rem;
+}
+
+.navbar-toggleable-sm .navbar-collapse,
+.navbar-toggleable-md .navbar-collapse {
+	width: auto;
+	padding-left: 10px;
+}
+
+.navbar .dropdown-menu {
+    margin-left: -6em;
+}

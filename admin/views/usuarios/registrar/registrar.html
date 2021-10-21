@@ -1,0 +1,106 @@
+<div class="dn-administrar" ng:init="onInit()">
+    <div class="container-fluid no-padding">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">
+                    <i class="fa fa-users"></i> Registrar Usuario</h4>
+            </div>
+            <div class="card-body">
+
+                <div class="container-fluid"> 
+                   <form name="formUsuario" ng:submit="register();"> 
+                        <wizard indicators-position="top" >
+                            <wz-step wz-title="Información Personal" wz-icon="fa fa-user " wz-heading-title="Información Personal">
+                                <div class="container">
+                                    <div class="row justify-content-center">
+                                        <div class="col-10">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input-text 
+                                                        title="Nombres" model="main_obj.nombres" name="nombres"  req="true"
+                                                        form="formUsuario.nombres" maxl="250" minl="2" regex=".*"
+                                                    ></input-text>
+                                                </div>  
+                                                <div class="col">
+                                                    <input-email 
+                                                        title="Email" model="main_obj.email" name="email"  req="true"
+                                                        form="formUsuario.email" maxl="250" minl="2"
+                                                    ></input-email>
+                                                </div>
+                                            </div>
+                                        </div>	
+                                    </div>
+                                </div>  
+                                <br>
+                                <div class="container" align="center">
+                                    <div class="row justify-content-center">
+                                        <div class="col-10">
+                                            <input type="submit" ng-disabled="(!formUsuario.nombres.$invalid && !formUsuario.email.$invalid) ? false : true"  
+                                            ng-click="" class="btn btn-primary btn-sm" wz-next value="Continuar" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </wz-step>
+                            <wz-step wz-title="Información de Usuario" wz-icon="fa fa-user " wz-heading-title="Registro de Usuario">
+                                <section>
+                                    <div class="container">
+                                        <div align="col-6 m-auto">
+                                            <div class="row"> 
+                                                <div class="col">
+                                                    <input-text 
+                                                        title="Nombre de usuario" model="main_obj.nick" name="nick"  req="true"
+                                                        form="formUsuario.nick" maxl="50" minl="3" 
+                                                    ></input-text>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input-select
+                                                        list="list_roles" key="nombre"
+                                                        label="Rol" 
+                                                        model="main_obj.rol_id" name="rol_id" 
+                                                        form="formUsuario.rol_id" 
+                                                        placeholder="Seleccionar Rol" 
+                                                        req="true"
+                                                    ></input-select>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <input-text 
+                                                        type="password" regex=".*"
+                                                        title="Contraseña" model="main_obj.password" name="password"  req="true"
+                                                        form="formUsuario.password" maxl="50" minl="3"
+                                                    ></input-text>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                                <br>
+                                <div class="container" align="center">
+                                    <div class="row justify-content-center">
+                                        <div class="col-10">
+
+                                            <input type="submit" class="btn btn-outline-primary btn-sm" wz-previous value="Regresar"/>
+                                            <input 
+                                                ng:click="register()"
+                                                type="submit" 
+                                                ng-disabled="
+                                                    ( !formUsuario.nick.$invalid && !formUsuario.password.$invalid 
+                                                        && !formUsuario.rol_id.$invalid && !spin) 
+                                                        ? false : true" 
+                                                class="btn btn-primary btn-sm"  
+                                                wz-next value = " {{ spin ? ' registrando  ...' : 'Registrar Usuario' }}" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </wz-step>
+                        </wizard>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ 

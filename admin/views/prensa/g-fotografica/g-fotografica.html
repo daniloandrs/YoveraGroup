@@ -1,0 +1,142 @@
+
+<div class="dn-roles" ng:init="onInit()">
+    <div class="container-fluid no-padding">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <h5 class="card-title">
+                            <i class="fa fa-images"></i> Galería Fotográfica </h5>
+                    </div>
+                </div> 
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6 m-auto">
+                        <button class="btn btn-success btn-sm" ng:click="openModal(0)">
+                            <i class="fa fa-plus"></i> Agregar Galería </button>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="input-group md-form form-sm form-2 pl-0">
+                            <input 
+                                class="form-control my-0 py-1 input-search" 
+                                type="text" 
+                                placeholder="Buscar" 
+                                aria-label="Search"
+                                ng:model="search"
+                            >              
+                            <div class="input-group-append">               
+                                <span class="input-group-text">                   
+                                    <i class="fas fa-search text-grey" aria-hidden="true"></i>                              
+                                </span>      
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="note-andheuris">
+                    <span class="badge badge-primary">Cantidad de registros : <span ng:bind="listData.length"></span></span>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 ">
+                                <div class="row">
+                                    <div class="col-md-4 col-sm-6 mb-2" style="margin-bottom: 1em !important;"
+                                       ng-model="listData" dir-paginate="item in listData|filter:search| orderBy:'-fecha_publicacion' |itemsPerPage:6" pagination-id="item.id">
+
+                                        <div class="card bg-dark text-white mb-0" ng-model="listData">
+                                        
+                                            <img class="card-img g-img" loading="lazy" ng:src="{{path + item.image}}" alt="{{item.image}}">
+                                        
+                                            <div class="card-img-overlay" style="top: auto;">
+                                                
+                                                <strong class="m-2">
+                                                    <p style="background-color: #00000078;" ng:if="item.titulo" class="card-text text-white p-2 text-center">
+
+                                                        {{ item.titulo }} <br>
+                                                        <small> {{ item.fecha_publicacion|date:'dd/MM/yyyy' }}</small>
+                                                    </p>
+                                                </strong>
+
+                                                <div class="text-center">
+                                                    <button  class="btn btn-info btn-sm" ng:click="addImagenes(item)">
+                                                        Añadir Imágenes
+                                                    </button>
+                                                </div>
+                                                <div class="text-center">
+                                                    <a class="btn-warning btn-sm btn-floating" ng:click="openModal(1,item)">
+                                                        <i class="fa fa-pencil-alt"></i>
+                                                    </a>
+                                                    
+                                                    <a class="btn-danger btn-sm btn-floating" ng:click="openModal(2,item)">
+                                                        <i class="fa fa-trash-alt"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>                 
+                        
+                        <div d:spinner="loading"></div>
+
+                        <div class="text-center">
+                            <dir-pagination-controls pagination-id="item.id"></dir-pagination-controls>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div> 
+
+<d-modal name = "modal-base-form" title = "Nueva galería" size="lg">
+
+    <form ng:submit="sendDataEvent()" name="forms.form_base">
+        
+        <div class="col-md-12">
+            <fieldset>
+                <input-text 
+                    title="Título" model="objectGaleria.titulo" name="titulo"  req="true"
+                    form="forms.form_base.titulo" maxl="300" minl="2" regex=".*"
+                ></input-text>
+            </fieldset>                    
+        </div>
+
+        <div class="col-md-12">
+            <fieldset>
+                <input-text type="date"
+                    title="Título" model="objectGaleria.fecha_publicacion" name="fecha_publicacion"  req="true"
+                    form="forms.form_base.fecha_publicacion"  regex=".*"
+                ></input-text>
+            </fieldset>
+        </div> 
+   
+        <div class="col-md-12">
+            <fieldset> 
+                <input-file 
+                    model="objectGaleria.image" type="image" options="archivo_options" 
+                    title="Imagen" default="default_image" delete-event="delete_();">
+                </input-file>
+            </fieldset>
+        </div>
+
+        <div class="fix-col justify-content-center">
+            <btn  title="{{ spin ? 'Procesando ... ' : 'Guardar' }}" 
+                disabled="(objectGaleria.image == undefined)" 
+                form="forms.form_base" icon="fa fa-save"
+                type="success" size="sm" spiner="spin">
+            </btn>
+        </div>
+        
+    </form>
+
+</d-modal>
+  

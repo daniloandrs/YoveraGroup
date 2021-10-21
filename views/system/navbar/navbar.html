@@ -1,0 +1,405 @@
+
+<div class="fondo" ng:if="showFondo">
+  <div class="pl-4 pr-4">  
+    <div class="row">
+
+      <div class="col-lg-2 col-md-6 m-auto pl-0 pr-0 pb-2">
+        <section class="">            
+          <img style="width: 150px;" ng:src="{{ path +  imagen_logo }}" alt="logo">
+        </section>
+      </div>  
+
+      <div class="col-lg-3 col-md-6 m-auto pl-0 pr-0 pb-2">
+        <section class="">
+          <i class="fas fa-map-marker-alt fa-2x color-yellow"></i>
+          <p class="m-0 text-yellow">Dirección:</p>
+          <small class="color-text">
+            {{configuraciones.form_contacto_direccion}} 
+          </small>        
+        </section>
+      </div>
+
+      <div class="col-lg-4 col-md-6 m-auto pl-0 pr-0 pb-2">
+          <section class="">
+            <i class="fas fa-clock fa-2x color-yellow"></i>
+            <p class="m-0 text-yellow">Horario de Atención :</p>
+            <p class="m-0">
+              <small class="color-text">
+               {{configuraciones.dias_atencion + ' : ' + configuraciones.horas_atencion}} 
+              </small>
+            </p>
+            <small class="color-text">
+              {{configuraciones.dias_atencion_2 + ' : ' + configuraciones.horas_atencion_2}} 
+           </small>    
+          </section>
+      </div>
+
+
+      <div class="col-lg-3 col-md-6 m-auto pl-0 pr-0 pb-2">
+        <section class="">
+          <i class="fas fa-phone-alt fa-2x color-yellow"></i>
+          <p class="m-0  text-yellow">
+            Celular : 
+          </p>
+          <span class="color-text">
+            {{configuraciones.form_contacto_telefono}} 
+          </span>   
+          <p class="m-0 color-text">{{configuraciones.form_contacto_email}}</p> 
+        </section>
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+<!--- navbar-stuck -->
+<header class="site-header navbar-sticky" ng:init="Init();">
+
+  <div class="topbar d-flex justify-content-between">
+
+    <!-- mobile -->
+
+    <div class="mobile-menu">
+
+      <div class="mobile-search">
+
+      </div>
+
+      <nav class="slideable-menu">
+
+        <ul class="menu" data-initial-height="auto" id="menu_mobile_slideable">
+
+          <li class="has-children">
+            <span>
+              <a href="#/" ng:click="closeMenu();"> Inicio </a>
+            </span>
+          </li>
+
+          <li class="has-children">
+            <span>
+              <a> Nosotros </a>
+              <span class="sub-menu-toggle"></span>
+            </span>
+            <ul class="slideable-submenu">
+              <li class="has-children">
+                  <a  href="#/nosotros"  ng:click="closeMenu();"> Quiénes somos </a>
+              </li>
+              <li class="has-children">
+                <a  href="#/mision"  ng:click="closeMenu();"> misión </a>
+            </li>
+            <li class="has-children">
+              <a  href="#/vision"  ng:click="closeMenu();"> visión </a>
+          </li>
+            </ul>
+          </li>
+
+          <li class="has-children">
+            <span>
+              <a> Cursos </a>
+              <span class="sub-menu-toggle"></span>
+            </span>
+            <ul class="slideable-submenu">
+              <li class="has-children" ng:repeat="tipo in tipo_cursos">
+                <span>
+                  <a  href="#/cursos"  ng:click="closeMenu();"> {{tipo.name }} </a>
+                </span>
+              </li>
+            </ul>
+          </li>
+          
+          <li class="has-children">
+            <span>
+              <a> Servicios </a>
+              <span class="sub-menu-toggle"></span>
+            </span>
+            <ul class="slideable-submenu">
+              <li class="has-children" ng:repeat="servicio in servicios">
+                <span>
+                  <a  href="#/servicio/{{servicio.id}}" ng:click="closeMenu();"> {{servicio.nombre }} </a>
+                </span>
+              </li>
+
+            </ul>
+          </li>
+
+          <li class="has-children">
+            <span>
+              <a href="#/contactanos" ng:click="closeMenu();"> Contacto </a>
+            </span>
+
+          </li>
+
+          <li class="has-children">
+            <span>
+              <a> Prensa </a>
+              <span class="sub-menu-toggle"></span>
+            </span>
+            <ul class="slideable-submenu">
+              <li class="has-children">
+                <a  href="#/galeria_imagenes" ng:click="closeMenu();">Galeria </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- 
+          <li class="has-children">
+
+            <span>
+
+              <a >Cuenta</a>
+
+              <span class="sub-menu-toggle"></span>
+
+            </span>
+
+            <ul class="slideable-submenu">
+
+              <li ng:if="!user.loggedIn">
+
+                <a href="#/login" ng:click="closeMenu();">
+                  Iniciar Sesión
+                </a>
+
+              </li>
+
+              <li ng:if="user.loggedIn">
+
+                <a ng:click="logout();">
+                  Cerrar Sesión
+                </a>
+
+              </li>
+
+              <li ng:if="user.loggedIn">
+
+                
+                <a href="#/mis_cursos" ng:click="closeMenu();">
+                  Mis Cursos
+                </a>
+
+              </li>
+              
+            </ul>
+
+          </li>
+          -->
+        </ul>
+
+      </nav>
+
+    </div>
+    <!-- end mobile -->
+    
+  </div>
+  
+
+  <!-- Navbar-->
+
+  <div class="navbar">
+
+    <!-- Main Navigation-->
+    
+    <nav class="site-menu">
+
+      <ul> 
+
+        <li class="has-submenu">
+
+          <div class="site-branding d-flex">
+        
+           
+            <a class="site-logo align-self-center">
+              
+              <img src="./dist/images/logo_base.png" alt="isologo" style="visibility: hidden;width: 100px; min-height:100px;">
+            
+            </a>
+          
+    
+          </div>
+
+        </li>
+
+        <li class="has-submenu hidden-on-mobile" ng:class="{'active' : (currentRoute == '/') }">
+
+          <a  class="text-white text-item-navbar" href="#/">Inicio</a>
+
+        </li>
+
+        <li class="has-megamenu hidden-on-mobile" style="position: relative;cursor:pointer" ng:class="{'active' : (currentRoute == '/nosotros') }">
+
+          <a  class="text-white text-item-navbar">Nosotros</a>
+          
+          <ul class="sub-menu">
+            <li>
+              <a href="#/nosotros">Quiénes Somos</a>
+            </li>
+            <li>
+              <a href="#/mision">Misión</a>
+            </li>
+            <li>
+              <a href="#/vision">Visión</a>
+            </li>
+            
+          </ul>
+
+        </li> 
+
+        <li class="has-megamenu hidden-on-mobile" style="position: relative;cursor:pointer" ng:class="{'active' : (currentRoute == '/cursos') }">
+
+          <a  class="text-white text-item-navbar" href="#/cursos">Cursos</a>
+          
+          <ul class="sub-menu">
+            <li><a href="#/cursos" ng:repeat="item in tipo_cursos">
+              {{ item.name }}
+            </a></li>
+          </ul>
+        </li> 
+
+        <li class="has-megamenu hidden-on-mobile"  ng:class="{'active' : (currentRoute == '/servicios') }">
+
+          <a  class="text-white text-item-navbar" style="cursor: pointer;">Servicios</a>
+
+          <ul class="mega-menu">
+            <li ng:repeat="servicio in servicios">
+              <span class="mega-menu-title">{{servicio.nombre}}</span>
+              <ul class="sub-menu">
+                <li ng:if="servicio.subservicios.length == 0">
+                  <a> Aún no tenemos sub servicios</a>
+               </li>
+                <li ng:repeat="sub in servicio.subservicios">
+                   <a href="#/servicios/{{servicio.id}}/{{sub.id}}"> <i class="fas fa-chevron-right"></i> {{' ' + sub.nombre}}</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+          
+        </li> 
+
+        <li class="has-submenu hidden-on-mobile" ng:class="{'active' : (currentRoute == '/noticias') }">
+
+          <a class="text-white text-item-navbar" href="">noticias</a>
+
+        </li>
+
+        <li class="has-submenu hidden-on-mobile" ng:class="{'active' : (currentRoute == '/contactanos') }">
+
+          <a class="text-white text-item-navbar" href="#/contactanos">Contacto</a>
+
+        </li>
+
+        <li class="has-megamenu hidden-on-mobile" style="position: relative;cursor:pointer">
+
+          <a  class="text-white text-item-navbar">Prensa</a>
+          
+          <ul class="sub-menu">
+            <li>
+              <a href="#/galeria_imagenes">
+                Galería
+              </a>
+            </li>
+          </ul>
+        </li> 
+
+        <li class="has-submenu">
+          
+          <div class="search-box-wrap d-flex">
+
+            <div class="search-box-inner align-self-center">
+      
+              <div class="search-box d-flex">
+                
+              </div>
+      
+            </div>
+      
+          </div>
+
+        </li>
+
+      </ul>
+
+    </nav>
+
+    <div class="toolbar">
+
+      <div class="toolbar-inner">
+
+        <div class="toolbar-item hidden-on-mobile">
+
+          <a ng:if="!user.loggedIn">
+
+            <div>
+
+             <i class="fa fa-user"></i>
+
+              <span class="text-label"> </span>
+
+            </div>
+
+          </a>
+
+          <a ng:if="user.loggedIn">
+
+            <div>
+
+              <i class="fa fa-user"></i>
+ 
+               <span class="text-label"> </span>
+ 
+             </div>
+          </a>
+
+          <div class="toolbar-dropdown text-center px-3" ng:if="user.loggedIn">
+
+            <p class="text-xs mb-3 pt-2">
+              Bienvenido {{user.nombres}}
+            </p>
+
+            <a  class="btn btn-smbtn btn-link-danger" ng:click="logout();">
+              Cerrar Sesión
+            </a>
+
+            <a class="btn btn-primary btn-sm btn-block" href="#/mis_cursos">
+              Ver Mis Cursos
+            </a>
+
+          </div>
+
+          <div class="toolbar-dropdown text-center px-3" ng:if="!user.loggedIn">
+
+            <p class="text-xs mb-3 pt-2">
+              Inicie sesión en su cuenta para acceder a sus cursos.
+            </p>
+
+            <a class="btn btn-primary btn-sm btn-block" href="#/login">
+              Iniciar Sesión
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="toolbar-item visible-on-mobile mobile-menu-toggle menu-hide">
+
+          <a>
+  
+            <div>
+  
+              <i class="icon-menu" style="font-size:40px;"></i>
+  
+              <span class="text-label" style="font-size:20px;">MENÚ</span>
+  
+            </div>
+  
+          </a>
+  
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</header>

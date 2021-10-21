@@ -1,0 +1,88 @@
+<breadcrumb></breadcrumb>
+<!-- card --> 
+<div class="card">
+
+    <!-- card - botton nuevo y input search -->
+    <div class="card-body" style="padding-bottom: 0em;">
+
+        
+            <div class="col-md-12 mb-2">
+                <div class="row">
+                    <h5>
+                        <span class="fa fa-home"></span> {{ menu_selected.nombre }}
+                    </h5>
+                </div>
+                
+            </div>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <btn type="success" title="Nuevo" icon="plus" center="false" click="createModal();">
+                </btn>
+            </div>
+    
+            <div class="col-5 md-form form-sm search-box">
+                <i class="fa fa-search prefix icon-search"></i>
+                <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+            </div>
+        </div> 
+    </div>
+
+    <!-- end -->
+
+    <!-- buuton recargar -->
+    <div class="row  btn-sync mb-2">
+        <div class="align-self-end">
+            <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+                <i class="fa fa-spinner"></i>
+            </a>
+        </div>
+    </div>
+    <!-- end -->
+
+    <div class="row btn-sync" ng:show="loader">
+        <loader type="view-loading"></loader>	    
+    </div>
+
+    <div ng:show="!loader" class="col-md-12">
+        <div class="form-row">
+            <div class="col-md-6">
+                <input-switch model="object.switch_1" title="¿Desea ver visible este contenido ?"></input-switch>
+            </div>
+            <div class="col-md-6">
+                <input-switch model="object.switch_3" title="¿Desea ver visible este contenido ?"></input-switch>
+            </div>
+                
+        </div>
+
+        <div class="form-row">
+            <div class="col-md-12">
+                <input-file model="object.file" options="options" title="Subir Imagen" default="object.default"
+                    delete-event="delete_();"></input-file>
+            </div>
+        </div>
+        <btn title="Enviar" type="info" size="sm" spiner="spin" click="enviar(object);" ></btn>
+    </div>
+</div>
+
+
+<d-modal name="modal-menu" title="{{titleModal}}" type="{{ create_opcion ? 'success': 'warning' }}">
+    
+    <form name="forms.menu" class="text-center" ng:submit="send(object)">
+        
+        <div class="form-row">
+            <div class="col-md-12">
+                <input-text title="Nombre" model="object.nombre" name="nombre" form="forms.menu.nombre" 
+                placeholder="Nombre" maxl="25" minl="4" req="true"/>
+            </div>
+
+            <div class="col-md-12">
+                <input-select label="Rol" list="roles" model="object.rol_id" name="rol_id" form="forms.menu.rol_id" req="true"></input-select>
+            </div>
+        </div>
+
+        <btn title="{{title_button}}" type="{{ create_opcion ? 'success' : 'warning'}}" size="sm" spiner="spin" form="forms.menu"></btn>
+
+    </form>
+
+</d-modal>

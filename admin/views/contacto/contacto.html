@@ -1,0 +1,293 @@
+
+<div class="card" ng:init="Init();">
+
+    <div class="card-body" style="padding-bottom: 0em;">
+
+        <div class="col-md-12 mb-2">
+            <div class="row">
+                <h5>
+                    <span class="fas fa-layer-group"></span>
+                    {{ ' ' + modelTitle }}
+                </h5>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-4">
+                <btn type="info" title="Configuraciones del Sitio" icon="plus" center="false" 
+                    click="openModalConfiguraciones();">
+                </btn>
+            </div>
+    
+            <div class="col-5 md-form form-sm search-box">
+                <i class="fa fa-search prefix icon-search"></i>
+                <input type="text" ng:model="search" class="form-control form-control-sm" placeholder="Buscar ..."/>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- end -->
+
+    <!-- buuton recargar -->
+    <div class="row  btn-sync mb-2">
+        <div class="align-self-end">
+            <a class="btn-ins btn-sm btn-floating" ng:click="preload();" ng:disabled="loader">
+                <i class="fa fa-spinner"></i>
+            </a>
+        </div>
+    </div>
+    <!-- end -->
+
+    <div class="row btn-sync" ng:if="loader">
+        
+        <loader type="view-loading"></loader>	
+
+    </div>
+
+    <div ng:if="!loader" class="col-md-12">
+        
+        <div class="container-fluid">
+        
+            <div class="col-md-12 text-center" ng:if="listData.length == 0">
+
+                <i class="fas fa-folder-minus fa-2x"></i>
+                
+                <span ng:bind="'Ningún ' + modelTitle + ' encontrado.'"> </span>
+
+            </div>
+
+            <div class="table-responsive" ng:if="listData.length > 0">
+
+                <table class="table">
+                
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Asunto</th>
+                            <th scope="col">Asunto</th>
+                            <th class="text-center" scope="col">Acciones</th>
+                        </tr>
+
+                    </thead>
+  
+                    <tbody>
+                    
+                        <tr 
+                        ng:class="{'isLeido' : row.isLeido}"
+                        dir-paginate="row in listData|filter:search|orderBy:'-id'|itemsPerPage:10" pagination-id="row.id">
+                    
+                            <th scope="row" ng:bind="$index + 1"></th>
+                    
+                            <td ng:bind="row.nombre"></td>
+                            <td ng:bind="row.email"></td>
+                            <td ng:bind="row.telefono"></td>
+                            <td ng:bind="row.asunto"></td>
+                            <td ng:bind="row.mensaje"></td>
+                            
+                            <td class="text-center">
+
+                                <div class="align-self-end card-close dropdown">
+
+                                    <a class="btn-floating btn-info btn-sm"  style="box-shadow:none" type="button"  id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        
+                                        <i class="delete-menu fas fa-ellipsis-v"></i>
+
+                                    </a>
+
+                                    <div class="dropdown-menu dropdown-dark">
+                                        <a class="dropdown-item" href="" ng:click="deleteModal(row);">
+                                            <i class="fa fa-trash-alt" data-toggle="tooltip" data-placement="bottom"
+                                            title="Eliminar"> 
+                                                Eliminar
+                                            </i>
+                                        </a>
+                                        <a class="dropdown-item" href="" ng:click="addLeido(row);">
+                                            <i class="fa fa-check" data-toggle="tooltip" data-placement="bottom"
+                                            title="Eliminar"> 
+                                            Marcar como leido
+                                            </i>
+                                            
+                                        </a>
+                                    </div>
+
+                                </div>
+
+ 
+                            </td>
+                    
+                        </tr>
+                    
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+        <div class="row btn-sync mt-4">
+
+            <dir-pagination-controls pagination-id="row.id"></dir-pagination-controls>
+        
+        </div>
+        
+    </div>
+    
+</div>
+
+<d-modal name="modal-configuraciones" title="Configuraciones" size="fluid">
+
+    <form name="forms.menu" class="text-center" ng:submit="sendData(configuraciones)">
+        
+        <div class="form-row">
+
+            <div class="col-md-12">
+
+                <input-text 
+                    title="Título para el formulario de contacto" model="configuraciones.form_contacto_titulo" name="form_contacto_titulo" 
+                    form="forms.menu.form_contacto_titulo" placeholder="Titulo para el formulario de contacto" maxl="2125" 
+                    minl="3" regex=".*" 
+                />
+            </div>
+
+            <div class="col-md-12">
+
+                <input-text 
+                    title="Descripción para el formulario de contacto" model="configuraciones.form_contacto_descripcion" name="form_contacto_descripcion" 
+                    form="forms.menu.form_contacto_descripcion" placeholder="Descripción para el formulario de contacto" maxl="2125"  
+                    minl="3" regex=".*" 
+                />
+
+            </div>
+
+            <div class="col-md-6">
+                
+                <input-text 
+                    title="Dirección de Contacto" model="configuraciones.form_contacto_direccion" name="form_contacto_direccion" 
+                    form="forms.menu.form_contacto_direccion" placeholder="Dirección de contacto"maxl="2125"  
+                    minl="3" regex=".*" 
+                />
+
+            </div>
+
+            <div class="col-md-6">
+
+                <input-text 
+                    title="Teléfono vinculado con whatsapp" model="configuraciones.telefono_whatsapp" name="telefono_whatsapp" 
+                    form="forms.menu.telefono_whatsapp" placeholder="Telefono vinculado con whatsapp (+519xxxxx45)" maxl="2125" regex=".*" 
+                    minl="3"  
+                />
+
+            </div>
+
+            
+            <div class="col-md-12" style="text-align: start;">
+                <strong><label class="" >Direcciones de correo : </label></strong>
+            </div>
+            
+            <div class="col-md-4">
+                <input-text 
+                    title="Email de contacto 1" model="configuraciones.form_contacto_email" name="form_contacto_email" 
+                form="forms.menu.form_contacto_email" placeholder="Email de contacto N° 1" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+            
+            <div class="col-md-4">
+                <input-text 
+                    title="Email de contacto 2" model="configuraciones.form_contacto_email_2" name="form_contacto_email_2" 
+                    form="forms.menu.form_contacto_email_2" placeholder="Email de contacto N° 2" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+            
+            <div class="col-md-4">
+                <input-text 
+                    title="Email de contacto 3" model="configuraciones.form_contacto_email_3" name="form_contacto_email_3" 
+                    form="forms.menu.form_contacto_email_3" placeholder="Email de contacto N° 3" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+
+            <!-- end correos -->
+
+
+            <div class="col-md-12" style="text-align: start;">
+                <strong><label class="" >Teléfonos de contacto : </label></strong>
+            </div>
+
+
+            <div class="col-md-4">
+                <input-text 
+                    title="Teléfono de contacto" model="configuraciones.form_contacto_telefono" name="form_contacto_telefono" 
+                    form="forms.menu.form_contacto_telefono" placeholder="Telefono de contacto" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+              
+            <div class="col-md-4">
+                <input-text 
+                    title="Teléfono de contacto N° 2" model="configuraciones.form_contacto_telefono_2" name="form_contacto_telefono_2" 
+                    form="forms.menu.form_contacto_telefono_2" placeholder="Telefono de contacto N° 2" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+
+            <div class="col-md-4">
+                <input-text 
+                    title="Teléfono de contacto N° 3" model="configuraciones.form_contacto_telefono_3" name="form_contacto_telefono_3" 
+                    form="forms.menu.form_contacto_telefono_3" placeholder="Telefono de contacto N° 3" maxl="2125" regex=".*" 
+                    minl="3" 
+                />
+            </div>
+            
+
+            <div class="col-md-12" style="text-align: start;">
+                <strong><label class="" >Horario de atención : </label></strong>
+            </div>
+
+
+            <div class="col-md-6">
+                <input-text 
+                    title="Días de Atención" model="configuraciones.dias_atencion" name="dias_atencion" 
+                    form="forms.menu.dias_atencion" placeholder="Dias de atención (lun - vier)" maxl="2125" regex=".*" 
+                    minl="3"  
+                />
+            </div>
+            
+            <div class="col-md-6">
+                <input-text 
+                    title="Horas de atención" model="configuraciones.horas_atencion" name="horas_atencion" 
+                    form="forms.menu.horas_atencion" placeholder="(9:00am 12:00pm)" maxl="2125" regex=".*" 
+                    minl="3"  
+                />
+            </div>
+
+
+            <div class="col-md-6">
+                <input-text 
+                    title="Días de Atención 2" model="configuraciones.dias_atencion_2" name="dias_atencion_2" 
+                    form="forms.menu.dias_atencion_2" placeholder="Dias de atención (lun - vier)" maxl="2125" regex=".*" 
+                    minl="3"  
+                />
+            </div>
+            
+            <div class="col-md-6">
+                <input-text 
+                    title="Horas de atención" model="configuraciones.horas_atencion_2" name="horas_atencion_2" 
+                    form="forms.menu.horas_atencion_2" placeholder="Horario (9:00am 12:00pm)" maxl="2125" regex=".*" 
+                    minl="3"  
+                />
+            </div>
+
+        </div>
+
+        <btn title="Guardar" type="success" size="sm" spiner="spin" form="forms.menu"></btn>
+
+    </form>
+
+</d-modal>

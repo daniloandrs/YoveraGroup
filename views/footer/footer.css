@@ -1,0 +1,10 @@
+.site-footer {
+    background-color: #21252b;
+}
+
+#map {
+    height: 240px;
+    border-radius: 8px;
+    width: 100%;
+    /* The width is the width of the web page */
+  }

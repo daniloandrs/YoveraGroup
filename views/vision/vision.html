@@ -1,0 +1,38 @@
+
+<loader ng:show="loader"></loader>
+    
+
+<div ng:init="Init();" ng:show="!loader">
+    
+    <div class="page-title">
+        <div class="bg-title" style="background: url(dist/images/hexagon.png) repeat;"></div>
+        <div class="container">
+            <div class="column" style="    z-index: 200;position: relative;">
+                
+                <h1 class="text-white">
+                    <a href="#/" class="text-white"><i class="fa fa-arrow-left"></i></a> &nbsp;&nbsp;
+                    
+                    VISIÓN</h1>
+            </div>
+            <div class="column">
+            </div>
+        </div>
+    </div>
+
+    <div class="container padding-bottom-3x">
+
+        <div class="row align-items-center padding-bottom-2x mt-4">
+
+            <div class="col-md-12 text-center">
+                
+                <h1>VISIÓN</h1>
+            </div>
+
+            <div class="col-md-8 text-justify m-auto font-text-nosotros">
+                <div dir-html-compile="nosotros.vision"></div>
+            </div>
+        </div>
+
+    </div>
+
+</div>

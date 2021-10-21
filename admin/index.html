@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+	<head>
+
+		<meta charset="UTF-8">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		
+		<title>Yovera Group | Administrador </title>
+		
+		<link rel="stylesheet" href="dist/css/aplication.css" type="text/css">
+
+	</head>
+
+	<body ng:app="app" ng:controller="index">
+
+		<component-swal/></component-swal>
+
+		<loader ng:show="loader"></loader>	
+
+		<div ng:show="!loader">
+		
+			<navbar></navbar>
+		
+			<sidebar></sidebar>
+		
+			<div id="main" ng:view></div>
+		
+		</div>
+
+		<script  rel="javascript" src="modules/load/libreries.js"></script>
+		
+		<script  rel="javascript" src="modules/load/aplication.js"></script>	
+
+		<script type="text/javascript">
+
+			Dropzone.autoDiscover = false;
+
+		</script>
+
+	</body>
+
+</html>
